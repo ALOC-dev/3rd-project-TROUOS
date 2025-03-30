@@ -1,0 +1,49 @@
+html, body {
+  height: 100%;
+  margin: 0;  /* 기본 margin 제거해야 불필요한 여백 x */
+}
+
+/* layout.tsx */
+.navbar {
+  align-items: center;  /* 세로축에 대해 중앙 정렬 */
+  background-color: #004094;
+  color: white;
+  display: flex;
+  height: 50px;
+  margin-bottom: 100px;
+  padding: 10px;
+  width: 100%;
+}
+
+.title {
+  color: white;
+  font-size: 40px;
+  text-decoration: none; /* Link의 기본 underline 제거 */
+}
+
+.irumae {
+  align-items: center;
+  display: flex;
+  padding-left: 10px;
+}
+
+.description {
+  font-size: 27px;
+  margin-top: 15px;
+  padding: 30px;
+}
+
+
+
+/* page.tsx */
+.map-container {
+  align-items: center;
+  background: #63666A;
+  color: white;
+  display: flex;
+  font-size: 30px;
+  height: 500px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+}
