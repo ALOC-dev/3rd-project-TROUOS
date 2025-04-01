@@ -12,8 +12,8 @@
       "opemTime": "10:00 ~ 20:00",
       "breakTime":"15:00 ~ 17: 00",
       "menu": [
-        { "name": "유케동", "price": 11000, /*"image": "/imgaes/yukedong.jpg" */},
-        { "name": "사케동", "price": 14000, /*"image": "/imgaes/sakedong.jpg" */}
+        { "name": "유케동", "price": 11000/*, "image": "/imgaes/yukedong.jpg" */},
+        { "name": "사케동", "price": 14000/*, "image": "/imgaes/sakedong.jpg" */}
       ],
       "delivery":false,
       "forHere":true,
