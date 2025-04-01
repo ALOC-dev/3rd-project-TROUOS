@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { East_Sea_Dokdo } from 'next/font/google';
+import { Nanum_Gothic } from 'next/font/google';
 import type { Metadata } from "next";
 import "./globals.css";
 
 /* 구글 폰트 */
-const eastSeaDokdo = East_Sea_Dokdo({
+const nanumGothic = Nanum_Gothic({
   weight: '400',
   subsets: ['latin'], // 사용할 문자 집합
 });
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
     return (
       <html lang="en">
-        <body className={eastSeaDokdo.className}>
+        <body className={nanumGothic.className}>
             <div className="navbar">
               <Link href="/" className="title">
                 이시대맛집

@@ -17,7 +17,8 @@ html, body {
 
 .title {
   color: white;
-  font-size: 40px;
+  font-size: 35px;
+  font-weight: bold;
   text-decoration: none; /* Link의 기본 underline 제거 */
 }
 
@@ -28,7 +29,7 @@ html, body {
 }
 
 .description {
-  font-size: 27px;
+  font-size: 20px;
   margin-top: 15px;
   padding: 30px;
 }
@@ -46,4 +47,12 @@ html, body {
   justify-content: center;
   margin: 0 auto;
   width: 80%;
+
+  /* 모서리 둥글게 */
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* 그림자 추가 */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+
 }
