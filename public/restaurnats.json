@@ -1,0 +1,25 @@
+{
+    "restaurants" : [
+    {
+      "id": 1,
+      "name": "반지하 돈부리",
+      "category": "일식",
+      "address": "서울특별시 동대문구 서울시립대로 78-6",
+      "lat": 37.585337,
+      "lng": 127.060857,
+      "phone": "02-3394-8111",
+      //"image": "/images/gimbap.jpg",
+      "opemTime": "10:00 ~ 20:00",
+      "breakTime":"15:00 ~ 17: 00",
+      "menu": [
+        { "name": "유케동", "price": 11000, /*"image": "/imgaes/yukedong.jpg" */},
+        { "name": "사케동", "price": 14000, /*"image": "/imgaes/sakedong.jpg" */}
+      ],
+      "delivery":false,
+      "forHere":true,
+      "takeOut":true  
+
+
+    }
+  ]
+}
