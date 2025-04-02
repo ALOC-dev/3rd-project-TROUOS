@@ -15,8 +15,8 @@ export default function KakaoMapPage() {
     map = new window.kakao.maps.Map(container, options);
 
     //원 그리기
-    const circle = new kakao.maps.Circle({
-      center: new kakao.maps.LatLng(37.583840, 127.059019),
+    const circle = new window.kakao.maps.Circle({
+      center: new window.kakao.maps.LatLng(37.583840, 127.059019),
       radius: 500,
       strokeWeight: 1, // 선 두께
       strokeColor: "#9BCBE8", // 선의 색상
@@ -48,4 +48,4 @@ export default function KakaoMapPage() {
   );
 }
 
-//kakao에 오류 뜨는 건 TypeScript가 window.kakao 타입을 몰라서 그런 거 같음
+
