@@ -53,7 +53,7 @@ export default function KakaoMapPage() {
 
     // 추가: 마커 이미지 설정
     const imageSrc = '/irumae.jpg'; // public 폴더 기준 상대 경로
-    const imageSize = new window.kakao.maps.Size(40, 40); // 마커 크기
+    const imageSize = new window.kakao.maps.Size(30, 40); // 마커 크기
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
 
     // 추가: 식당 마커 표시
