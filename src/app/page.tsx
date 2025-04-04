@@ -1,9 +1,15 @@
 'use client'; // 클라이언트 사이드에서 DOM 조작해야함
 
+import { useState } from 'react';
 import Script from 'next/script';
 
 export default function KakaoMapPage() {
   let map: kakao.maps.Map;
+
+  // 마커 클릭시 모달 창 열림
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   // 추가: 식당 정보 배열
   const restaurants = [
@@ -15,7 +21,7 @@ export default function KakaoMapPage() {
       lat: 37.585337,
       lng: 127.060857,
       phone: '02-3394-8111',
-      opemTime: '10:00 ~ 20:00',
+      openTime: '10:00 ~ 20:00',
       breakTime: '15:00 ~ 17:00',
       menu: [
         { name: '유케동', price: 11000 },
@@ -67,13 +73,16 @@ export default function KakaoMapPage() {
         image: markerImage
       });
 
-      // 추가: 마커 클릭 시 정보창
+      // 추가: 마커 클릭 시 정보창 열기
       const infowindow = new window.kakao.maps.InfoWindow({
         content: `<div style="padding:5px;font-size:13px;">${restaurant.name}</div>`
       });
 
+      // 마커 클릭시 식당이름 표시
       window.kakao.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
+        setSelectedRestaurant(restaurant);
+        setIsModalOpen(true);
       });
     });
   };
@@ -91,6 +100,26 @@ export default function KakaoMapPage() {
       />
       {/*지도 표시 영역*/}
       <div className="map-container" id="map" style={{ width: '70%', height: '500px' }}></div>
+      {/*모달 창*/}
+      {isModalOpen && selectedRestaurant && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <h2>{selectedRestaurant.name}</h2>
+          <hr />
+            <p><strong>📍 주소:</strong> {selectedRestaurant.address}</p>
+            <p><strong>📞 전화번호:</strong> {selectedRestaurant.phone}</p>
+            <p><strong>🕙 영업시간:</strong> {selectedRestaurant.openTime}</p>
+            <p><strong>🛑 브레이크 타임:</strong> {selectedRestaurant.breakTime}</p>
+            <p><strong>🍽️ 메뉴:</strong></p>
+            <ul>
+              {selectedRestaurant.menu.map((item, index) => (
+                <li key={index}>{item.name} - {item.price}원</li>
+              ))}
+            </ul>
+            <button onClick={() => setIsModalOpen(false)}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
