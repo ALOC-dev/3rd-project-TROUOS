@@ -1,7 +1,7 @@
 'use client'; // 클라이언트 사이드에서 DOM 조작해야함
 
-import { useState } from 'react';
 import Script from 'next/script';
+import { useState } from 'react';
 
 export default function KakaoMapPage() {
   let map: kakao.maps.Map;
@@ -9,7 +9,6 @@ export default function KakaoMapPage() {
   // 마커 클릭시 모달 창 열림
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   // 추가: 식당 정보 배열
   const restaurants = [
