@@ -147,7 +147,7 @@ export default function KakaoMapPage() {
 
             {/* 모달 내용 */}
             <h2>{selectedRestaurant.name}</h2>
-            <hr />
+            <hr className="special-hr" />
             {/* p: 문단 나누기 , strong: 강조 */}
             <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
             <p><strong>📞 전화번호</strong> {selectedRestaurant.phone}</p>
@@ -162,12 +162,14 @@ export default function KakaoMapPage() {
             }</p>
             <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
             <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime}</p>
+            <hr />
             <p><strong>🍽️ 대표 메뉴</strong></p>
             <ul>
               {selectedRestaurant.menu.map((item, index) => (
                 <li key={index}>{item.name} - {item.price}원</li>
               ))}
             </ul>
+            <hr />
             <p><strong>🚗 이용 방법</strong></p>
             <div className="service-icons">
               <img src={selectedRestaurant.delivery ? '/배달가능.png' : '/배달불가.png'} alt="배달" />
