@@ -115,7 +115,9 @@ export default function KakaoMapPage() {
         strategy="afterInteractive"
         onLoad={() => {
           // sdk 로드 후, 지도 로드
-          window.kakao.maps.load(initMap); 
+          window.kakao.maps.load(() => {
+            initMap();
+          }); 
         }}
       />
 
