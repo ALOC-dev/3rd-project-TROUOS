@@ -1,5 +1,5 @@
 {
-    "restaurants":[
+  "restaurants": [
     {
       "id": 1,
       "name": "반지하돈부리",
@@ -8,24 +8,18 @@
       "latitude": 37.585337,
       "longitude": 127.060857,
       "phone": "02-3394-8111",
-      "openDays": {
-        "monday": true,
-        "tuesday": true,
-        "wednesday": true,
-        "thursday": true,
-        "friday": true,
-        "saturday": false,
-        "sunday": false
-      },
+      "closedDays": ["saturday", "sunday"],
       "openTime": "10:00~20:00",
       "breakTime": "15:00~17:00",
       "menu": [
         { "name": "유케동", "price": 11000 },
         { "name": "사케동", "price": 14000 }
       ],
-      "delivery": false,
-      "forHere": true,
-      "takeOut": true  
+      "usage": {
+        "delivery": false,
+        "forHere": true,
+        "takeOut": true
+      }
     },
     {
       "id": 2,
@@ -35,15 +29,7 @@
       "latitude": 37.582313,
       "longitude": 127.057187,
       "phone": "02-6490-5864",
-      "openDays": {
-        "monday": true,
-        "tuesday": true,
-        "wednesday": true,
-        "thursday": true,
-        "friday": true,
-        "saturday": false,
-        "sunday": false
-      },
+      "closedDays": ["saturday", "sunday"],
       "openTime": "08:30~19:00",
       "breakTime": false,
       "menu": [
@@ -62,15 +48,7 @@
       "latitude": 37.584563,
       "longitude": 127.056938,
       "phone": false,
-      "openDays": {
-        "monday": true,
-        "tuesday": true,
-        "wednesday": true,
-        "thursday": true,
-        "friday": true,
-        "saturday": false,
-        "sunday": false
-      },
+      "closedDays": ["saturday", "sunday"],
       "openTime": "09:00~20:00",
       "breakTime": " ",
       "menu": [
