@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   margin: 0;  /* 기본 margin 제거해야 불필요한 여백 x */
+  background-color: #B9D9EB; /*배경색 추가*/
 }
 
 /* layout.tsx */
@@ -45,7 +46,7 @@ html, body {
   color: white;
   display: flex;
   font-size: 30px;
-  height: 500px;
+  height: 650px; /*지도 상하 높이 소폭 늘림 */
   justify-content: center;
   margin: 0 auto;
   width: 80%;
@@ -72,7 +73,7 @@ html, body {
   overflow-y: auto;
   padding: 24px;
   position: relative;
-  width: 400px;
+  width: 500px; /*모달창 크기 확대 */
 }
 
 .modal-content button {
@@ -85,3 +86,24 @@ html, body {
   top: 12px;
 }
 
+.service-icons {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px; /* 아이콘 사이 여백 */
+  margin-top: 8px;
+}
+
+.service-icons img {
+  width: 120px;
+  height: auto;
+  display: block;
+  text-align: center;
+}
+
+.special-hr {
+  display: block;
+  margin: 0.0em 0;
+  border: none;
+  border-top: 2px solid #aaa;
+  height: 0;
+}

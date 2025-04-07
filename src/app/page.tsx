@@ -4,6 +4,7 @@ import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러�
 import { useEffect, useState } from 'react';
 
 
+
 // 식당 정보 담을 인터페이스 
 interface Restaurant {
   id: number;
@@ -13,7 +14,7 @@ interface Restaurant {
   latitude: number;
   longitude: number;
   phone: string | false;
-  openDays: { [key: string]: boolean };
+  closedDays: string[];
   openTime: string;
   breakTime: string | false;
   menu: { name: string; price: number }[];
@@ -146,32 +147,35 @@ export default function KakaoMapPage() {
 
             {/* 모달 내용 */}
             <h2>{selectedRestaurant.name}</h2>
-            <hr />
+            <hr className="special-hr" />
             {/* p: 문단 나누기 , strong: 강조 */}
             <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
             <p><strong>📞 전화번호</strong> {selectedRestaurant.phone}</p>
-            <p><strong>📆 영업 날짜</strong></p>
-            <ul>
-              {Object.entries(selectedRestaurant.openDays).map(([day, isOpen]) => (
-                <li key={day}>
-                  {day}: {isOpen ? '영업' : '휴무'}
-                </li>
-              ))}
-            </ul>
+            <p><strong>📆 휴무일</strong> {
+              selectedRestaurant.closedDays.length > 0
+                ? selectedRestaurant.closedDays.map((day, index) => (
+                  <span key={index}>
+                    {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
+                  </span>
+                ))
+              : '없음 (매일 영업)'
+            }</p>
             <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
             <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime}</p>
+            <hr />
             <p><strong>🍽️ 대표 메뉴</strong></p>
             <ul>
               {selectedRestaurant.menu.map((item, index) => (
                 <li key={index}>{item.name} - {item.price}원</li>
               ))}
             </ul>
+            <hr />
             <p><strong>🚗 이용 방법</strong></p>
-            <ul>
-              <li>배달: {selectedRestaurant.delivery ? '가능' : '불가'}</li>
-              <li>포장: {selectedRestaurant.takeOut ? '가능' : '불가'}</li>
-              <li>매장 이용: {selectedRestaurant.forHere ? '가능' : '불가'}</li>
-            </ul>
+            <div className="service-icons">
+              <img src={selectedRestaurant.delivery ? '/배달가능.png' : '/배달불가.png'} alt="배달" />
+              <img src={selectedRestaurant.takeOut ? '/포장가능.png' : '/포장불가.png'} alt="포장" />
+              <img src={selectedRestaurant.forHere ? '/매장이용가능.png' : '/매장이용불가.png'} alt="매장" />
+            </div>
           </div>
         </div>
       )}
