@@ -84,8 +84,8 @@ export default function KakaoMapPage() {
     circle.setMap(map); // 지도 위에 원 표시
 
     // 마커 이미지 설정
-    const imageSrc = '/irumae.jpg';
-    const imageSize = new window.kakao.maps.Size(30, 40); // 크기
+    const imageSrc = '/얼굴.png';
+    const imageSize = new window.kakao.maps.Size(40, 40); // 크기 소폭 변경
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 객체 생성
 
     // 모든 음식점 마커 표시
