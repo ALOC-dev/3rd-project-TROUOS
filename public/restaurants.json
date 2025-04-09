@@ -36,9 +36,11 @@
         { "name": "No.1우유식빵", "price": 3700 },
         { "name": "부드럽고촉촉한 굿모닝롤", "price": 4300 }
       ],
-      "delivery": false,
-      "forHere": false,
-      "takeOut": true  
+      "usage": {
+        "delivery": false,
+        "forHere": false,
+        "takeOut": true
+      } 
     },
     {
       "id": 3,
@@ -55,9 +57,11 @@
         { "name": "이탈리안 비엠티 (15cm)", "price": 8100 },
         { "name": "에그마요 (15cm)", "price": 6800 }
       ],
-      "delivery": false,
-      "forHere": true,
-      "takeOut": true  
+      "usage": {
+        "delivery": false,
+        "forHere": true,
+        "takeOut": true
+      }
     }
   ]
 }

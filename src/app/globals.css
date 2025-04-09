@@ -11,7 +11,7 @@ html, body {
   color: white;
   display: flex;
   height: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 5%;
   padding: 10px;
   width: 100%;
 }
@@ -46,10 +46,11 @@ html, body {
   color: white;
   display: flex;
   font-size: 30px;
-  height: 650px; /*지도 상하 높이 소폭 늘림 */
+  height: 70vh; /*지도 상하 높이 소폭 늘림 */
   justify-content: center;
   margin: 0 auto;
   width: 80%;
+  margin-top: 10px;
 }
 
 .modal-overlay {
@@ -106,4 +107,35 @@ html, body {
   border: none;
   border-top: 2px solid #aaa;
   height: 0;
+}
+
+.button-container {
+  margin-left: 2%; 
+}
+
+.filter-button {
+  padding: 7px;
+  margin-right: 10px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
+.type-filter-container{
+  margin-left: 10%; 
+  padding: 5px;
+  
+}
+
+.type-dropdown{
+  position: absolute; /* dropdown이 내려왔을때 지도 안내려가게 하는거 */
+  z-index: 100; /* z 축 : 지도 앞으로 나오게 하기 */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.filter-container{
+  display: flex;
+  flex-direction: row;
 }

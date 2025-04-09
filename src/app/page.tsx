@@ -2,8 +2,9 @@
 
 import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러오기 위해
 import { useEffect, useState } from 'react';
-
-
+import CategoryFilter from '@/components/filters/CategoryFilter';
+import TypeFiter from '@/components/filters/TypeFilter';
+import UsageFilter from '@/components/filters/UsageFilter';
 
 // 식당 정보 담을 인터페이스 
 interface Restaurant {
@@ -31,6 +32,13 @@ export default function KakaoMapPage() {
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   // 모달 open 여부
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //타입 선택
+  const [selectedType, setSelectedType] = useState('전체');
+  //이용방법 선택
+  const [selectedUsage, setSelectedUsage] = useState('전체');
+  // 카테고리 선택
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+
 
   // restaurants.json 불러오기
   useEffect(() => {
@@ -53,7 +61,16 @@ export default function KakaoMapPage() {
       // 지도 생성 함수
       initMap();
     }
-  }, [restaurants]); // 음식점 데이터 바뀔 때만
+  }, [restaurants, selectedCategory, selectedUsage]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
+
+  useEffect(() => {
+    if (selectedType === '음식 카테고리') {
+      setSelectedUsage('전체');  // 사용하지 않는 필터 초기화
+    } else if (selectedType === '이용 방법') {
+      setSelectedCategory('전체');  // 사용하지 않는 필터 초기화
+    }
+  }, [selectedType]);
+
 
   // 지도 초기화 함수
   const initMap = () => {
@@ -88,8 +105,22 @@ export default function KakaoMapPage() {
     const imageSize = new window.kakao.maps.Size(30, 40); // 크기
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 객체 생성
 
-    // 모든 음식점 마커 표시
-    restaurants.forEach((restaurant) => {
+    //카테고리에 맞는 음식점 필터링
+    const filteredRestaurants = restaurants.filter((restaurant) => {
+      if(selectedType === '음식 카테고리') {
+        return selectedCategory === '전체' || restaurant.category === selectedCategory;
+      }
+      else if(selectedType === '이용 방법') {
+        return selectedUsage === '전체' || 
+        (selectedUsage === '배달' && restaurant.usage.delivery) ||
+        (selectedUsage === '포장' && restaurant.usage.takeOut) ||
+        (selectedUsage === '매장식사' && restaurant.usage.forHere);
+      }
+      return true;
+    });
+
+    // 마커 표시
+    filteredRestaurants.forEach((restaurant) => {
       // 음식점 위도 및 경도
       const markerPosition = new window.kakao.maps.LatLng(restaurant.latitude, restaurant.longitude);
 
@@ -121,6 +152,30 @@ export default function KakaoMapPage() {
           }); 
         }}
       />
+      
+      {/* 필터 버튼 */}
+      <div className='filter-container'>
+        <TypeFiter 
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+        />
+
+        {selectedType === '음식 카테고리' && (
+          <CategoryFilter
+            selectedCategory = {selectedCategory}
+            setSelectedCategory = {setSelectedCategory}
+          />
+        )}
+
+        {selectedType === '이용 방법' && (
+          <UsageFilter
+            selectedUsage={selectedUsage}
+            setSelectedUsage={setSelectedUsage}
+          />
+        )}
+      </div>
+
+
 
       {/* 지도 표시 영역 */}
       <div className="map-container" id="map"></div>
