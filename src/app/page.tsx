@@ -86,6 +86,8 @@ export default function KakaoMapPage() {
 
     // 지도 객체 생성
     const map = new window.kakao.maps.Map(container, options);
+    // 시립대 중심좌표
+    const centerPosition = new window.kakao.maps.LatLng(37.583840, 127.059019);
 
     // 원 그리기
     const circle = new window.kakao.maps.Circle({
@@ -99,6 +101,20 @@ export default function KakaoMapPage() {
       fillOpacity: 0.4
     });
     circle.setMap(map); // 지도 위에 원 표시
+
+    // 중심 좌표 마커 생성
+    const centerMarker = new window.kakao.maps.Marker({
+      position: centerPosition
+    });
+    centerMarker.setMap(map); // 지도 위에 중심 마커 표시
+
+    // '서울시립대학교' 텍스트 라벨 표시
+    const customOverlay = new window.kakao.maps.CustomOverlay({
+      position: centerPosition,
+      content: `<div class="map-label">서울시립대학교</div>`,
+      yAnchor: -0.3 
+    });
+    customOverlay.setMap(map);
 
     // 마커 이미지 설정
     const imageSrc = '/얼굴.png';
