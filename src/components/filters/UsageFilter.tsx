@@ -1,22 +1,28 @@
-//props 타입 정의
+import Image from 'next/image'; 
+
 interface Props {
     selectedUsage: string;
     setSelectedUsage: (usage: string) => void;
 }
 
-export default function UsageFilter({selectedUsage, setSelectedUsage}: Props){
-    //이용 방법 종류
+export default function UsageFilter({ selectedUsage, setSelectedUsage }: Props) {
     const usages = ['배달', '매장식사', '포장'];
 
-    return(
+    return (
         <div className="button-container">
             {usages.map((usage) => (
                 <button
-                    className="filter-button"
                     key={usage}
-                    //클릭 시 setSelectedUsage에 선택한 값 전달
+                    className={`filter-button ${selectedUsage === usage ? 'selected' : ''}`}
                     onClick={() => setSelectedUsage(usage)}
                 >
+                    <Image
+                        src={`/${usage}.png`} // 아이콘 이미지 추가
+                        alt={`${usage} 아이콘`}
+                        width={20}
+                        height={20}
+                        style={{ marginRight: '6px' }}
+                    />
                     {usage}
                 </button>
             ))}

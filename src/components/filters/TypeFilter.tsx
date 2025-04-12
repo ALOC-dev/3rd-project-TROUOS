@@ -18,8 +18,11 @@ export default function TypeFilter({selectedType, setSelectedType}: Props){
 
     return(
         <div className="type-filter-container">
-            <button onClick={() => setIsOpen(!isOpen)}>
-                {selectedType}
+            <button
+                className="filter-button"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                {selectedType} {/*왼쪽 타입버튼도 디자인 동일하게 적용*/}
             </button>
             {/* 토글이 열려있으면 실행 */}
             {isOpen && (
