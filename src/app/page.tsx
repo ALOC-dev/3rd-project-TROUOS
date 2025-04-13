@@ -2,9 +2,9 @@
 
 import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러오기 위해
 import { useEffect, useState } from 'react';
-import CategoryFilter from '@/components/filters/CategoryFilter';
-import TypeFiter from '@/components/filters/TypeFilter';
-import UsageFilter from '@/components/filters/UsageFilter';
+import Dropdown from '@/components/Dropdown';
+import DiningOption from '@/components/Filter/DiningOption';
+import FoodCategory from '@/components/Filter/FoodCategory';
 
 // 식당 정보 담을 인터페이스 
 interface Restaurant {
@@ -80,13 +80,13 @@ export default function KakaoMapPage() {
     // 지도 담을 DOM
     const container = document.getElementById('map');
     const options = {
-      center: new window.kakao.maps.LatLng(37.583840, 127.059019), // 초기 좌표(시립대 중심)
+      center: new window.kakao.maps.LatLng(37.583840, 127.059019), // 초기 좌표 (시립대 중심)
       level: 4 // 확대 레벨 (작을수록 확대)
     };
 
     // 지도 객체 생성
     const map = new window.kakao.maps.Map(container, options);
-    // 시립대 중심좌표
+    // 중심 좌표 (시립대)
     const centerPosition = new window.kakao.maps.LatLng(37.583840, 127.059019);
 
     // 원 그리기
@@ -117,7 +117,7 @@ export default function KakaoMapPage() {
     customOverlay.setMap(map);
 
     // 마커 이미지 설정
-    const imageSrc = '/얼굴.png';
+    const imageSrc = '/Irumae-face.png';
     const imageSize = new window.kakao.maps.Size(40, 40); // 크기 소폭 변경
     const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 객체 생성
 
@@ -171,20 +171,20 @@ export default function KakaoMapPage() {
       
       {/* 필터 버튼 */}
       <div className='filter-container'>
-        <TypeFiter 
+        <Dropdown 
           selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
 
         {selectedType === '음식 카테고리' && (
-          <CategoryFilter
+          <FoodCategory
             selectedCategory = {selectedCategory}
             setSelectedCategory = {setSelectedCategory}
           />
         )}
 
         {selectedType === '이용 방법' && (
-          <UsageFilter
+          <DiningOption
             selectedUsage={selectedUsage}
             setSelectedUsage={setSelectedUsage}
           />
@@ -229,7 +229,7 @@ export default function KakaoMapPage() {
                     {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
                   </span>
                 ))
-              : '없음 (매일 영업)'
+              : '매일 영업'
             }</p>
             <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
             <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime}</p>
@@ -243,9 +243,9 @@ export default function KakaoMapPage() {
             <hr />
             <p><strong>🚗 이용 방법</strong></p>
             <div className="service-icons">
-              <img src={selectedRestaurant.delivery ? '/배달가능.png' : '/배달불가.png'} alt="배달" />
-              <img src={selectedRestaurant.takeOut ? '/포장가능.png' : '/포장불가.png'} alt="포장" />
-              <img src={selectedRestaurant.forHere ? '/매장이용가능.png' : '/매장이용불가.png'} alt="매장" />
+              <img src={selectedRestaurant.delivery ? '/p-delivery.png' : '/i-delivery.png'} alt="delivery" />
+              <img src={selectedRestaurant.takeOut ? '/p-takeOut.png' : '/i-takeOut.png'} alt="takeOut" />
+              <img src={selectedRestaurant.forHere ? '/p-forHere.png' : '/i-forHere.png'} alt="forHere" />
             </div>
           </div>
         </div>

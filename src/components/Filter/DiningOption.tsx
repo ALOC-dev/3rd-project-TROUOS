@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function UsageFilter({ selectedUsage, setSelectedUsage }: Props) {
-    const usages = ['배달', '매장식사', '포장'];
+    const usages = ['매장식사', '포장', '배달'];
 
     return (
         <div className="button-container">

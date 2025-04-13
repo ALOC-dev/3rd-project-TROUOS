@@ -8,7 +8,7 @@
       "latitude": 37.585337,
       "longitude": 127.060857,
       "phone": "02-3394-8111",
-      "closedDays": ["saturday", "sunday"],
+      "closedDays": ["토", "일"],
       "openTime": "10:00~20:00",
       "breakTime": "15:00~17:00",
       "menu": [
@@ -29,7 +29,7 @@
       "latitude": 37.582313,
       "longitude": 127.057187,
       "phone": "02-6490-5864",
-      "closedDays": ["saturday", "sunday"],
+      "closedDays": ["토", "일"],
       "openTime": "08:30~19:00",
       "breakTime": false,
       "menu": [
@@ -50,7 +50,7 @@
       "latitude": 37.584563,
       "longitude": 127.056938,
       "phone": false,
-      "closedDays": ["saturday", "sunday"],
+      "closedDays": ["토", "일"],
       "openTime": "09:00~20:00",
       "breakTime": " ",
       "menu": [
