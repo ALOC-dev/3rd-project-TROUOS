@@ -1,7 +1,10 @@
 html, body {
+  background-color: #B9D9EB; /* 배경색 */
+  display: flex;
+  flex-direction: column;
   height: 100%;
   margin: 0;  /* 기본 margin 제거해야 불필요한 여백 x */
-  background-color: #B9D9EB; /* 배경색 */
+  overflow: hidden; /* 불필요한 세로 스크롤 제거 */
 }
 
 /* layout.tsx */
@@ -11,6 +14,7 @@ html, body {
   display: flex;
   margin-bottom: 5%;
   padding: 10px;
+  position: fixed;
   width: 100%;
 }
 
@@ -19,7 +23,7 @@ html, body {
   display: inline-block;
   font-size: 45px;
   font-weight: bold;
-  line-height: 0.8;
+  line-height: 0.7;
   margin: 15px 15px;
   position: relative;
   text-decoration: none; /* Link의 기본 underline 제거 */
@@ -27,7 +31,7 @@ html, body {
 
 .title-2 {
   color: white;
-  padding-left: 50px;
+  padding-left: 58px;
   text-shadow: 1px 1px 1px #006EB8;
 }
 
@@ -45,19 +49,20 @@ html, body {
 
 
 /* page.tsx */
+.dropdown-wrapper{
+  display: flex;
+}
+
 .map-container {
-  align-items: center;
   background: #63666A;
   border-radius: 10px; /* 모서리 둥글게 */
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
   color: white;
   display: flex;
   font-size: 30px;
-  height: 70vh; /*지도 상하 높이 소폭 늘림 */
-  justify-content: center;
-  margin: 0 auto;
+  height: 70vh; /* 지도 상하 높이 소폭 늘림 */
+  margin: 100px auto;
   width: 80%;
-  margin-top: 10px;
 }
 
 .modal-overlay {
@@ -156,11 +161,6 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 6px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-.filter-container{
-  display: flex;
-  flex-direction: row;
 }
 
 .map-label {

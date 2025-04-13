@@ -170,7 +170,7 @@ export default function KakaoMapPage() {
       />
       
       {/* 필터 버튼 */}
-      <div className='filter-container'>
+      <div className='dropdown-wrapper'>
         <Dropdown 
           dropdown={dropdown}
           selectedDropdown={selectedDropdown}
