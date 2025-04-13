@@ -1,32 +1,39 @@
 html, body {
   height: 100%;
   margin: 0;  /* 기본 margin 제거해야 불필요한 여백 x */
-  background-color: #B9D9EB; /*배경색 추가*/
+  background-color: #B9D9EB; /* 배경색 */
 }
 
 /* layout.tsx */
 .navbar {
   align-items: center;  /* 세로축에 대해 중앙 정렬 */
-  background-color: #004094;
   color: white;
   display: flex;
-  height: 50px;
   margin-bottom: 5%;
   padding: 10px;
   width: 100%;
 }
 
 .title {
-  color: white;
-  font-size: 35px;
+  color: #005EB8;
+  display: inline-block;
+  font-size: 45px;
   font-weight: bold;
+  line-height: 0.8;
+  margin: 15px 15px;
+  position: relative;
   text-decoration: none; /* Link의 기본 underline 제거 */
+}
+
+.title-2 {
+  color: white;
+  padding-left: 50px;
+  text-shadow: 1px 1px 1px #006EB8;
 }
 
 .irumae {
   align-items: center;
   display: flex;
-  padding-left: 10px;
 }
 
 .description {
