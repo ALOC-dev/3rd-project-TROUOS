@@ -51,6 +51,7 @@ html, body {
 /* page.tsx */
 .dropdown-wrapper{
   display: flex;
+  margin-top: 115px;
 }
 
 .map-container {
@@ -61,7 +62,7 @@ html, body {
   display: flex;
   font-size: 30px;
   height: 70vh; /* 지도 상하 높이 소폭 늘림 */
-  margin: 100px auto;
+  margin: 2px auto;
   width: 80%;
 }
 
