@@ -2,34 +2,35 @@ import {useState} from "react";
 
 // props 타입 정의
 interface Props {
-    selectedType: string;
-    setSelectedType: (type: string) => void;
+    dropdown: string;
+    selectedDropdown: (type: string) => void;
 }
 
-export default function TypeFilter({selectedType, setSelectedType}: Props){
+export default function Dropdown({dropdown, selectedDropdown
+}: Props){
     //드롭다운 상태 확인
     const [isOpen, setIsOpen] = useState(false);
 
     //메뉴 선택 함수
-    const menuSelect = (type: string) => {
-        setSelectedType(type);
+    const dropdownSelect = (type: string) => {
+        selectedDropdown(type);
         setIsOpen(false);
     };
 
     return(
-        <div className="type-filter-container">
+        <div className="dropdown-container">
             <button
-                className="filter-button"
+                className="dropdown-button"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {selectedType} {/*왼쪽 타입버튼도 디자인 동일하게 적용*/}
+                {dropdown} {/*왼쪽 타입버튼도 디자인 동일하게 적용*/}
             </button>
             {/* 토글이 열려있으면 실행 */}
             {isOpen && (
-                <div className="type-dropdown">
-                    <div onClick={() => menuSelect('전체')}>전체</div>
-                    <div onClick={() => menuSelect('이용 방법')}>이용 방법</div>
-                    <div onClick={() => menuSelect('음식 카테고리')}>음식 카테고리</div>
+                <div className="dropdown-list">
+                    <div onClick={() => dropdownSelect('전체')}>전체</div>
+                    <div onClick={() => dropdownSelect('이용 방법')}>이용 방법</div>
+                    <div onClick={() => dropdownSelect('음식 카테고리')}>음식 카테고리</div>
                 </div>
             )}
         </div>

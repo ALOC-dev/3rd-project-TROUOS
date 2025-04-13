@@ -114,7 +114,7 @@ html, body {
   gap: 10px;
 }
 
-.filter-button {
+.dropdown-button {
   display: flex;
   align-items: center;
   padding: 10px 12px;
@@ -126,23 +126,23 @@ html, body {
   transition: 0.2s ease;
 }
 
-.filter-button:hover {
+.dropdown-button:hover {
   background-color: #f0f0f0;
 }
 
-.filter-button.selected {
+.dropdown-button.selected {
   background-color: #004094;
   color: white;
   border: none;
 }
 
-.type-filter-container{
+.dropdown-container{
   margin-left: 10%; 
   padding: 5px;
   
 }
 
-.type-dropdown{
+.dropdown-list{
   position: absolute; /* dropdown이 내려왔을때 지도 안내려가게 하는거 */
   z-index: 100; /* z 축 : 지도 앞으로 나오게 하기 */
   background-color: #ffffff;

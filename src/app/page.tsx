@@ -32,12 +32,12 @@ export default function KakaoMapPage() {
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   // 모달 open 여부
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //타입 선택
-  const [selectedType, setSelectedType] = useState('전체');
-  //이용방법 선택
-  const [selectedUsage, setSelectedUsage] = useState('전체');
-  // 카테고리 선택
-  const [selectedCategory, setSelectedCategory] = useState('전체');
+  // 드롭다운
+  const [dropdown, selectedDropdown] = useState('전체');
+  //이용 방법
+  const [diningOption, setDiningOption] = useState('전체');
+  // 카테고리
+  const [foodCategory, setFoodCategory] = useState('전체');
 
 
   // restaurants.json 불러오기
@@ -61,15 +61,15 @@ export default function KakaoMapPage() {
       // 지도 생성 함수
       initMap();
     }
-  }, [restaurants, selectedCategory, selectedUsage]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
+  }, [restaurants, foodCategory, diningOption]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
 
   useEffect(() => {
-    if (selectedType === '음식 카테고리') {
-      setSelectedUsage('전체');  // 사용하지 않는 필터 초기화
-    } else if (selectedType === '이용 방법') {
-      setSelectedCategory('전체');  // 사용하지 않는 필터 초기화
+    if (foodCategory === '음식 카테고리') {
+      setFoodCategory('전체');  // 사용하지 않는 필터 초기화
+    } else if (diningOption === '이용 방법') {
+      setDiningOption('전체');  // 사용하지 않는 필터 초기화
     }
-  }, [selectedType]);
+  }, [dropdown]);
 
 
   // 지도 초기화 함수
@@ -123,14 +123,14 @@ export default function KakaoMapPage() {
 
     //카테고리에 맞는 음식점 필터링
     const filteredRestaurants = restaurants.filter((restaurant) => {
-      if(selectedType === '음식 카테고리') {
-        return selectedCategory === '전체' || restaurant.category === selectedCategory;
+      if(dropdown === '음식 카테고리') {
+        return foodCategory === '전체' || restaurant.category === foodCategory;
       }
-      else if(selectedType === '이용 방법') {
-        return selectedUsage === '전체' || 
-        (selectedUsage === '배달' && restaurant.usage.delivery) ||
-        (selectedUsage === '포장' && restaurant.usage.takeOut) ||
-        (selectedUsage === '매장식사' && restaurant.usage.forHere);
+      else if(dropdown === '이용 방법') {
+        return diningOption === '전체' || 
+        (diningOption === '배달' && restaurant.usage.delivery) ||
+        (diningOption === '포장' && restaurant.usage.takeOut) ||
+        (diningOption === '매장식사' && restaurant.usage.forHere);
       }
       return true;
     });
@@ -172,21 +172,21 @@ export default function KakaoMapPage() {
       {/* 필터 버튼 */}
       <div className='filter-container'>
         <Dropdown 
-          selectedType={selectedType}
-          setSelectedType={setSelectedType}
+          dropdown={dropdown}
+          selectedDropdown={selectedDropdown}
         />
 
-        {selectedType === '음식 카테고리' && (
+        {dropdown === '음식 카테고리' && (
           <FoodCategory
-            selectedCategory = {selectedCategory}
-            setSelectedCategory = {setSelectedCategory}
+            foodCategory = {foodCategory}
+            setFoodCategory = {setFoodCategory}
           />
         )}
 
-        {selectedType === '이용 방법' && (
+        {dropdown === '이용 방법' && (
           <DiningOption
-            selectedUsage={selectedUsage}
-            setSelectedUsage={setSelectedUsage}
+            diningOption={diningOption}
+            setDiningOption={setDiningOption}
           />
         )}
       </div>
