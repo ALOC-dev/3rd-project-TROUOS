@@ -63,14 +63,6 @@ export default function KakaoMapPage() {
     }
   }, [restaurants, foodCategory, diningOption]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
 
-  useEffect(() => {
-    if (foodCategory === '음식 카테고리') {
-      setFoodCategory('전체');  // 사용하지 않는 필터 초기화
-    } else if (diningOption === '이용 방법') {
-      setDiningOption('전체');  // 사용하지 않는 필터 초기화
-    }
-  }, [filterSelector]); // 중복 선택 허용하려면 수정 필요해보임!!!
-
 
   // 지도 초기화 함수
   const initMap = () => {
