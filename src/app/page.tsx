@@ -2,7 +2,7 @@
 
 import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러오기 위해
 import { useEffect, useState } from 'react';
-import Dropdown from '@/components/Dropdown';
+import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
 
@@ -32,8 +32,8 @@ export default function KakaoMapPage() {
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   // 모달 open 여부
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // 드롭다운
-  const [dropdown, selectedDropdown] = useState('전체');
+  // 필터 선택
+  const [filterSelector, setFilterSelector] = useState('전체');
   //이용 방법
   const [diningOption, setDiningOption] = useState('전체');
   // 카테고리
@@ -69,7 +69,7 @@ export default function KakaoMapPage() {
     } else if (diningOption === '이용 방법') {
       setDiningOption('전체');  // 사용하지 않는 필터 초기화
     }
-  }, [dropdown]);
+  }, [filterSelector]); // 중복 선택 허용하려면 수정 필요해보임!!!
 
 
   // 지도 초기화 함수
@@ -123,17 +123,16 @@ export default function KakaoMapPage() {
 
     //카테고리에 맞는 음식점 필터링
     const filteredRestaurants = restaurants.filter((restaurant) => {
-      if(dropdown === '음식 카테고리') {
-        return foodCategory === '전체' || restaurant.category === foodCategory;
-      }
-      else if(dropdown === '이용 방법') {
-        return diningOption === '전체' || 
+      // 중복 선택 허용
+      const selectedCategory = foodCategory === '전체' || restaurant.category === foodCategory;
+      const selectedOption = diningOption === '전체' || 
         (diningOption === '배달' && restaurant.usage.delivery) ||
         (diningOption === '포장' && restaurant.usage.takeOut) ||
         (diningOption === '매장식사' && restaurant.usage.forHere);
-      }
-      return true;
+
+      return selectedCategory && selectedOption;
     });
+
 
     // 마커 표시
     filteredRestaurants.forEach((restaurant) => {
@@ -155,6 +154,25 @@ export default function KakaoMapPage() {
     });
   };
 
+  // 재선택시 선택 해제
+  const handleDiningOption = (option: string) => {
+    if(diningOption === option) {
+      setDiningOption('전체');
+    }
+    else {
+      setDiningOption(option);
+    }
+  };
+
+  const handleFoodCategory = (category: string) => {
+    if(foodCategory === category) {
+      setFoodCategory('전체');
+    }
+    else {
+      setFoodCategory(category);
+    }
+  };
+
   return (
     <div>
       {/* kakao map sdk 불러오기 */}
@@ -170,23 +188,29 @@ export default function KakaoMapPage() {
       />
       
       {/* 필터 버튼 */}
-      <div className='dropdown-wrapper'>
-        <Dropdown 
-          dropdown={dropdown}
-          selectedDropdown={selectedDropdown}
-        />
-
-        {dropdown === '음식 카테고리' && (
-          <FoodCategory
-            foodCategory = {foodCategory}
-            setFoodCategory = {setFoodCategory}
+      <div className='filter-wrapper'>
+        {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
+        {filterSelector === '전체' && (
+          <FilterSelector 
+            filterSelector={filterSelector}
+            setFilterSelector={setFilterSelector}
           />
         )}
 
-        {dropdown === '이용 방법' && (
+        
+        {filterSelector === '음식 카테고리' && (
+          <FoodCategory
+            foodCategory={foodCategory}
+            setFoodCategory={handleFoodCategory}
+            setFilterSelector={setFilterSelector}
+          />
+        )}
+
+        {filterSelector === '이용 방법' && (
           <DiningOption
             diningOption={diningOption}
-            setDiningOption={setDiningOption}
+            setDiningOption={handleDiningOption}
+            setFilterSelector={setFilterSelector}
           />
         )}
       </div>
