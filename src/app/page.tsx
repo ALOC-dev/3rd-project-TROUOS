@@ -189,6 +189,16 @@ export default function KakaoMapPage() {
       
       {/* 필터 버튼 */}
       <div className='filter-wrapper'>
+
+        <button 
+          className='reset-button'
+          onClick={() => {
+            setFilterSelector('전체');
+            setDiningOption('전체');
+            setFoodCategory('전체');
+          }}
+        >초기화</button>
+
         {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
         {filterSelector === '전체' && (
           <FilterSelector 
