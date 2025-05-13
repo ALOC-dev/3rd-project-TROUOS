@@ -6,7 +6,6 @@ import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
 
-// 식당 정보 담을 인터페이스 
 interface Restaurant {
   id: number;
   name: string;
@@ -14,14 +13,18 @@ interface Restaurant {
   address: string;
   latitude: number;
   longitude: number;
-  phone: string | false;
-  closedDays: string[];
+  phone?: string | null;
+  closedDays: string[]; // DB 저장 시 JSON 배열로 처리됨
   openTime: string;
-  breakTime: string | false;
-  menu: { name: string; price: number }[];
+  breakTime?: string | null;
   delivery: boolean;
   forHere: boolean;
   takeOut: boolean;
+  menu: {
+    id: number;
+    name: string;
+    price: number;
+  }[];
 }
 
 // 상태 변수
@@ -40,15 +43,15 @@ export default function KakaoMapPage() {
   const [foodCategory, setFoodCategory] = useState('전체');
 
 
-  // restaurants.json 불러오기
+  // DB 불러오기
   useEffect(() => {
     const fetchRestaurants = async () => {
-      // public 폴더의 json 파일 요청
-      const res = await fetch('/restaurants.json');
+      // api 폴더에서 data 요청
+      const res = await fetch('/api/restaurants');
       // json 파싱
       const data = await res.json();
       // 음식점 리스트 저장
-      setRestaurants(data.restaurants);
+      setRestaurants(data);
     };
     
     // 함수 호출
@@ -118,9 +121,9 @@ export default function KakaoMapPage() {
       // 중복 선택 허용
       const selectedCategory = foodCategory === '전체' || restaurant.category === foodCategory;
       const selectedOption = diningOption === '전체' || 
-        (diningOption === '배달' && restaurant.usage.delivery) ||
-        (diningOption === '포장' && restaurant.usage.takeOut) ||
-        (diningOption === '매장식사' && restaurant.usage.forHere);
+        (diningOption === '배달' && restaurant.delivery) ||
+        (diningOption === '포장' && restaurant.takeOut) ||
+        (diningOption === '매장식사' && restaurant.forHere);
 
       return selectedCategory && selectedOption;
     });
@@ -241,33 +244,36 @@ export default function KakaoMapPage() {
             >
               &times;
             </button>
-
+            
             {/* 모달 내용 */}
             <h2>{selectedRestaurant.name}</h2>
             <hr className="special-hr" />
             {/* p: 문단 나누기 , strong: 강조 */}
             <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
-            <p><strong>📞 전화번호</strong> {selectedRestaurant.phone}</p>
-            <p><strong>📆 휴무일</strong> {
-              selectedRestaurant.closedDays.length > 0
+            <p><strong>📞 전화번호</strong>{' '}{selectedRestaurant.phone ? selectedRestaurant.phone : '없음'}</p>
+            <p><strong>📆 휴무일</strong>{' '}{
+              selectedRestaurant.closedDays && selectedRestaurant.closedDays.length > 0
                 ? selectedRestaurant.closedDays.map((day, index) => (
-                  <span key={index}>
-                    {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
-                  </span>
-                ))
-              : '매일 영업'
-            }</p>
+                    <span key={index}>
+                      {day.charAt(0).toUpperCase() + day.slice(1)}
+                      {index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
+                    </span>
+                  ))
+                : '없음 (매일 영업)'
+                }</p>
             <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
-            <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime}</p>
+            <p><strong>⛔️ 브레이크 타임</strong>{' '}{selectedRestaurant.breakTime ? selectedRestaurant.breakTime : '-'}</p>
             <hr />
             <p><strong>🍽️ 대표 메뉴</strong></p>
             <ul>
-              {selectedRestaurant.menu.map((item, index) => (
-                <li key={index}>{item.name} - {item.price}원</li>
-              ))}
+              {selectedRestaurant.menu && selectedRestaurant.menu.length > 0 ? ( //연결된 메뉴 없을 시 오류 처리
+                selectedRestaurant.menu.map((item) => (
+                  <li key={item.id}>{item.name} - {item.price}원</li>
+                ))
+              ) : (<li>등록된 메뉴가 없습니다.</li>)}
             </ul>
             <hr />
-            <p><strong>🚗 이용 방법</strong></p>
+             <p><strong>🚗 이용 방법</strong></p>
             <div className="service-icons">
               <img src={selectedRestaurant.delivery ? '/p-delivery.png' : '/i-delivery.png'} alt="delivery" />
               <img src={selectedRestaurant.takeOut ? '/p-takeOut.png' : '/i-takeOut.png'} alt="takeOut" />

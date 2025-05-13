@@ -1,0 +1,40 @@
+//prisma가 prisma client 라이브러리 생성. 코드 내에서 데이터베이스와 상호작용할 수 있는 API. @prisma/client를 임포트하여 사용용
+generator client {
+  provider = "prisma-client-js"
+}
+
+//데이터베이스 연결 지정
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") //.env의 DATABASE_URL 사용
+}
+
+model Restaurant {
+  id          Int      @id @default(autoincrement()) //@id : 기본 키  @default(autoincrement()) : 레코드가 새로 생성 될때마다 자동으로 숫자 증가
+  name        String
+  category    String
+  address     String
+  latitude    Float
+  longitude   Float
+  phone       String?  //nullable | Flase -> ?
+  closedDays  Json   //MySQL에는 문자열 배열 없음 필요시 서버 로직에서 JSON 파싱해서 사용
+  openTime    String
+  breakTime   String?
+  delivery    Boolean
+  forHere     Boolean
+  takeOut     Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 관계 설정: 한 맛집은 여러 메뉴를 가질 수 있음.
+  menu        Menu[]
+}
+
+model Menu {
+  id            Int         @id @default(autoincrement())
+  name          String
+  price         Float
+
+  restaurantId  Int  //어떤 식당에 속하는지 표현
+  restaurant    Restaurant  @relation(fields: [restaurantId], references: [id]) //Restaurant 모델과의 외래 키 관계 명시시
+}
