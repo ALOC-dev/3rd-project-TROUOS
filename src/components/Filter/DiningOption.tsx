@@ -1,7 +1,7 @@
 import Image from 'next/image'; 
 
 interface Props {
-    diningOption: string;
+    diningOption: string[];
     setDiningOption: (option: string) => void;
     // '이전'을 누르면 setFilterSelector을 '전체'로 변경하기 위해 props 추가
     setFilterSelector: (filter: string) => void;
@@ -15,7 +15,7 @@ export default function DiningOption({ diningOption, setDiningOption, setFilterS
             {options.map((option) => (
                 <button
                     key={option}
-                    className={`filter-button ${diningOption === option ? 'selected' : ''}`}
+                    className={`filter-button ${diningOption.includes(option) ? 'selected' : ''}`}
                     // '이전'을 누르면 돌아가도록 함
                     onClick={() => {
                         if(option === '이전') {

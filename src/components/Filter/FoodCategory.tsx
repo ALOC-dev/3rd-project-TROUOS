@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 interface Props {
-    foodCategory: string;
+    foodCategory: string[];
     setFoodCategory: (category: string) => void;
     // '이전'을 누르면 setFilterSelector을 '전체'로 변경하기 위해 props 추가
     setFilterSelector: (filter: string) => void;
@@ -14,7 +14,7 @@ export default function CategoryFilter({ foodCategory, setFoodCategory, setFilte
         <div className="button-container">
             {categories.map((category) => (
                 <button
-                    className={`filter-button ${foodCategory === category ? 'selected' : ''}`}
+                    className={`filter-button ${foodCategory.includes(category) ? 'selected' : ''}`}
                     key={category}
                     // '이전'을 누르면 돌아가도록 함
                     onClick={() => {

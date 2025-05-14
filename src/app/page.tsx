@@ -35,9 +35,9 @@ export default function KakaoMapPage() {
   // 필터 선택
   const [filterSelector, setFilterSelector] = useState('전체');
   //이용 방법
-  const [diningOption, setDiningOption] = useState('전체');
+  const [diningOption, setDiningOption] = useState<string[]>([]);
   // 카테고리
-  const [foodCategory, setFoodCategory] = useState('전체');
+  const [foodCategory, setFoodCategory] = useState<string[]>([]);
 
 
   // restaurants.json 불러오기
@@ -116,11 +116,18 @@ export default function KakaoMapPage() {
     //카테고리에 맞는 음식점 필터링
     const filteredRestaurants = restaurants.filter((restaurant) => {
       // 중복 선택 허용
-      const selectedCategory = foodCategory === '전체' || restaurant.category === foodCategory;
-      const selectedOption = diningOption === '전체' || 
-        (diningOption === '배달' && restaurant.usage.delivery) ||
-        (diningOption === '포장' && restaurant.usage.takeOut) ||
-        (diningOption === '매장식사' && restaurant.usage.forHere);
+      const selectedCategory = 
+        foodCategory.length === 0 || 
+        foodCategory.includes(restaurant.category);
+
+      const selectedOption = 
+        diningOption.length === 0 ||
+        diningOption.every((option) => {
+          if(option === "배달") return restaurant.usage.delivery;
+          if(option === "포장") return restaurant.usage.takeOut;
+          if(option === "매장식사") return restaurant.usage.forHere;
+          return false;
+        })
 
       return selectedCategory && selectedOption;
     });
@@ -148,33 +155,42 @@ export default function KakaoMapPage() {
 
   // 재선택시 선택 해제
   const handleDiningOption = (option: string) => {
-    if(diningOption === option) {
-      setDiningOption('전체');
-    }
-    else {
-      setDiningOption(option);
-    }
+    setDiningOption((prevOptions) => {
+      if(prevOptions.includes(option)) {
+        return prevOptions.filter((o) => o !== option);
+      }
+      else {
+        return [...prevOptions, option];
+      }
+    })
   };
 
   const handleFoodCategory = (category: string) => {
-    if(foodCategory === category) {
-      setFoodCategory('전체');
-    }
-    else {
-      setFoodCategory(category);
-    }
+    setFoodCategory((prevCategories) => {
+      if(prevCategories.includes(category)) {
+        return prevCategories.filter((c) => c !== category);
+      }
+      else {
+        return [...prevCategories, category];
+      }
+    })
   };
+  
 
   //선택된 버튼 화면에 표시
   const SelectedButtons = () => {
-    if( diningOption === '전체' && foodCategory === '전체') {
+    if( diningOption.length === 0 && foodCategory.length === 0) {
       return null;
     }
 
     return (
       <div className='selected-button'>
-        {diningOption !== '전체' && <span>{diningOption}</span>}
-        {foodCategory !== '전체' && <span>{foodCategory}</span>}
+        {diningOption.map((opt) => (
+          <span key={opt}>{opt}</span>
+        ))}
+        {foodCategory.map((cate) => (
+          <span key={cate}>{cate}</span>
+        ))}
       </div>
     )
   }
@@ -193,20 +209,23 @@ export default function KakaoMapPage() {
         }}
       />
 
-      <div>
-        <SelectedButtons />
-      </div>
+      <div className='top-bar'>
+        <div>
+          <SelectedButtons />
+        </div>
 
-      <div className='reset-wrapper'>
-        <button 
-          className='reset-button'
-          onClick={() => {
-            setFilterSelector('전체');
-            setDiningOption('전체');
-            setFoodCategory('전체');
-          }}
-        >초기화</button>
+        <div className='reset-wrapper'>
+          <button 
+            className='reset-button'
+            onClick={() => {
+              setFilterSelector('전체');
+              setDiningOption([]);
+              setFoodCategory([]);
+            }}  
+          >초기화</button>
+        </div>
       </div>
+      
 
 
       <div className='main-container'>
