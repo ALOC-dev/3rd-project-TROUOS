@@ -165,6 +165,20 @@ export default function KakaoMapPage() {
     }
   };
 
+  //선택된 버튼 화면에 표시
+  const SelectedButtons = () => {
+    if( diningOption === '전체' && foodCategory === '전체') {
+      return null;
+    }
+
+    return (
+      <div className='selected-button'>
+        {diningOption !== '전체' && <span>{diningOption}</span>}
+        {foodCategory !== '전체' && <span>{foodCategory}</span>}
+      </div>
+    )
+  }
+
   return (
     <div>
       {/* kakao map sdk 불러오기 */}
@@ -178,10 +192,12 @@ export default function KakaoMapPage() {
           }); 
         }}
       />
-      
-      {/* 필터 버튼 */}
-      <div className='filter-wrapper'>
 
+      <div>
+        <SelectedButtons />
+      </div>
+
+      <div className='reset-wrapper'>
         <button 
           className='reset-button'
           onClick={() => {
@@ -190,38 +206,46 @@ export default function KakaoMapPage() {
             setFoodCategory('전체');
           }}
         >초기화</button>
-
-        {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
-        {filterSelector === '전체' && (
-          <FilterSelector 
-            filterSelector={filterSelector}
-            setFilterSelector={setFilterSelector}
-          />
-        )}
-
-        
-        {filterSelector === '음식 카테고리' && (
-          <FoodCategory
-            foodCategory={foodCategory}
-            setFoodCategory={handleFoodCategory}
-            setFilterSelector={setFilterSelector}
-          />
-        )}
-
-        {filterSelector === '이용 방법' && (
-          <DiningOption
-            diningOption={diningOption}
-            setDiningOption={handleDiningOption}
-            setFilterSelector={setFilterSelector}
-          />
-        )}
       </div>
 
 
+      <div className='main-container'>
+        {/* 필터 버튼 */}
+        <div className='filter-wrapper'>
 
-      {/* 지도 표시 영역 */}
-      <div className="map-container" id="map"></div>
+          {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
+          {filterSelector === '전체' && (
+            <FilterSelector 
+              filterSelector={filterSelector}
+              setFilterSelector={setFilterSelector}
+            />
+          )}
 
+        
+          {filterSelector === '음식 카테고리' && (
+            <FoodCategory
+              foodCategory={foodCategory}
+              setFoodCategory={handleFoodCategory}
+              setFilterSelector={setFilterSelector}
+            />
+          )}
+
+          {filterSelector === '이용 방법' && (
+            <DiningOption
+              diningOption={diningOption}
+              setDiningOption={handleDiningOption}
+              setFilterSelector={setFilterSelector}
+            />
+          )}
+        </div>
+
+
+
+        {/* 지도 표시 영역 */}
+        <div className="map-container" id="map"></div>
+
+      </div>
+      
       {/* 모달 */}
       {isModalOpen && selectedRestaurant && (
         <div

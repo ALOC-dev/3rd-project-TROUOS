@@ -49,23 +49,6 @@ html, body {
 
 
 /* page.tsx */
-.filter-wrapper{
-  display: flex;
-  margin-top: 115px;
-}
-
-.map-container {
-  background: #63666A;
-  border-radius: 10px; /* 모서리 둥글게 */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
-  color: white;
-  display: flex;
-  font-size: 30px;
-  height: 70vh; /* 지도 상하 높이 소폭 늘림 */
-  margin: 2px auto;
-  width: 80%;
-}
-
 .modal-overlay {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -122,11 +105,55 @@ html, body {
   height: 0;
 }
 
+.col-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1%;
+}
+
+.filter-wrapper{
+  display: flex;
+
+}
+
+.map-container {
+  background: #63666A;
+  border-radius: 10px; /* 모서리 둥글게 */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+  color: white;
+  font-size: 30px;
+  height: 70vh; /* 지도 상하 높이 소폭 늘림 */
+
+  position: fixed;
+  top: 22%;
+  left: 15%;
+  right: 5%;
+
+}
+
 .button-container {
   display: flex;
   gap: 10px;
   margin-left: 10%;
   margin-bottom: 1%;
+  flex-direction: column;
+  align-items: flex-end;  /*세로선 상에서 끝에 맞춤*/
+
+  position: fixed;  /*위치 고정*/
+  right: 86%;
+  top: 22%;
+
 }
 
 
@@ -138,8 +165,11 @@ html, body {
   background-color: white;
   border-radius: 20px;
   font-size: 14px;
+  white-space: nowrap;  /*글자 안내려가게*/
+  width: fit-content;  /*글자 길이에 버튼 크기 맞춤*/
   cursor: pointer;
   transition: 0.2s ease;
+
 }
 
 .filter-button:hover {
@@ -152,17 +182,24 @@ html, body {
   border: none;
 }
 
-.reset-button {
-  position: fixed;
-  right: 10%;
+.reset-wrapper {
   display: flex;
+  position: relative;
+  margin-top: 15vh;
   justify-content: flex-end;
-  align-items: center;
+  width: 100%;
+}
+
+.reset-button {
+  position: fixed; /*위치 고정*/
+  display: flex;
+  right: 5%;
   padding: 10px 12px;
   border: 1px solid #ccc;
   background-color: white;
   border-radius: 20px;
   font-size: 14px;
+  width: fit-content;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -177,4 +214,19 @@ html, body {
   color: #2b2b2b;
   text-shadow: 1px 1px 2px white;
   white-space: nowrap;
+}
+
+.selected-button {
+  font-size: 14px;
+  color: #004094;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px 12px;
+  border-radius: 20px;
+  gap: 10px;
+  display: flex;
+  width: fit-content; /*글자 길이에 크기 맞춤*/
+  position: fixed;  /*위치 고정*/
+  right: 11%;
+  top: 0.5%;
+  margin-top: 15vh;
 }
