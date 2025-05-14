@@ -35,9 +35,9 @@ export default function KakaoMapPage() {
   // 필터 선택
   const [filterSelector, setFilterSelector] = useState('전체');
   //이용 방법
-  const [diningOption, setDiningOption] = useState<string[]>([]);
+  const [diningOption, setDiningOption] = useState<string[]>([]); //중복처리를 위해 배열로 변경
   // 카테고리
-  const [foodCategory, setFoodCategory] = useState<string[]>([]);
+  const [foodCategory, setFoodCategory] = useState<string[]>([]);  //중복처리를 위해 배열로 변경
 
 
   // restaurants.json 불러오기
@@ -117,12 +117,12 @@ export default function KakaoMapPage() {
     const filteredRestaurants = restaurants.filter((restaurant) => {
       // 중복 선택 허용
       const selectedCategory = 
-        foodCategory.length === 0 || 
-        foodCategory.includes(restaurant.category);
+        foodCategory.length === 0 ||  //배열에 아무것도 없으면 == 선택 안함 == '전체'
+        foodCategory.includes(restaurant.category);   //선택한 카테고리 중 하나라도 일치하는 경우
 
       const selectedOption = 
-        diningOption.length === 0 ||
-        diningOption.every((option) => {
+        diningOption.length === 0 ||  //배열에 아무것도 없으면 == 선택 안함 == '전체'
+        diningOption.every((option) => {    //every: 모든 조건이 만족해야 할때 사용
           if(option === "배달") return restaurant.usage.delivery;
           if(option === "포장") return restaurant.usage.takeOut;
           if(option === "매장식사") return restaurant.usage.forHere;
@@ -155,12 +155,12 @@ export default function KakaoMapPage() {
 
   // 재선택시 선택 해제
   const handleDiningOption = (option: string) => {
-    setDiningOption((prevOptions) => {
+    setDiningOption((prevOptions) => {    //prevOptions 현재 상태값 배열
       if(prevOptions.includes(option)) {
-        return prevOptions.filter((o) => o !== option);
+        return prevOptions.filter((o) => o !== option);   //filter: 주어진 조건을 만족하는 요소만 남김 => option과 같으면 배열에서 제거(재선택시 해제)
       }
       else {
-        return [...prevOptions, option];
+        return [...prevOptions, option];   //...prevOptions: 기존 배열 복사
       }
     })
   };
@@ -171,7 +171,7 @@ export default function KakaoMapPage() {
         return prevCategories.filter((c) => c !== category);
       }
       else {
-        return [...prevCategories, category];
+        return [...prevCategories, category]; 
       }
     })
   };
@@ -185,7 +185,7 @@ export default function KakaoMapPage() {
 
     return (
       <div className='selected-button'>
-        {diningOption.map((opt) => (
+        {diningOption.map((opt) => (    //diningOption 배열 요소 렌더링
           <span key={opt}>{opt}</span>
         ))}
         {foodCategory.map((cate) => (

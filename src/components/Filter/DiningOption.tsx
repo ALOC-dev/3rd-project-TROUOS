@@ -1,7 +1,7 @@
 import Image from 'next/image'; 
 
 interface Props {
-    diningOption: string[];
+    diningOption: string[];   //중복 선택을 위해 배열로 설정
     setDiningOption: (option: string) => void;
     // '이전'을 누르면 setFilterSelector을 '전체'로 변경하기 위해 props 추가
     setFilterSelector: (filter: string) => void;
