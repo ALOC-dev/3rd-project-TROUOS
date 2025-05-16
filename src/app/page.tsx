@@ -26,6 +26,8 @@ interface Restaurant {
 
 // 상태 변수
 export default function KakaoMapPage() {
+  // 헤더 이루매 이미지
+  const [src,setSrc] = useState("/irumae.jpg");
   // 음식점 리스트
   const [restaurants, setRestaurants] = useState<any[]>([]);
   // 음식점 클릭 여부
@@ -226,7 +228,26 @@ export default function KakaoMapPage() {
         </div>
       </div>
       
+      {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
+      <div 
+        className="image-wrapper"
+        onMouseOver={(e) => {
+          const img = e.currentTarget.querySelector('img');
+          if (img) img.src = "/hello_Irumae.png";
+        }}
 
+        // 마우스 벗어나면 다시 원래 이미지로 되돌림
+        onMouseOut={(e) => {
+          const img = e.currentTarget.querySelector('img');
+          if (img) img.src = "/irumae.jpg";
+        }}
+      >
+        <img
+          className="irumae-img"
+          src="/irumae.jpg"
+          alt="이루매"
+        />
+      </div>
 
       <div className='main-container'>
         {/* 필터 버튼 */}
