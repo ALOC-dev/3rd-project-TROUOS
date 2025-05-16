@@ -25,14 +25,6 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
           <Link href="/" className="title">
             이시대<br /><span className="title-2">맛집</span>
           </Link>
-            <span className="irumae">
-              <Image src="/irumae.jpg"
-                      alt="이루매"
-                      width={50}
-                      height={10}
-                      layout="intrinsic" />
-              {/* public 경로는 /로 시작 */}
-            </span>
             <span className="description">Trending Restaurants of UOS</span>
         </div>
           {children} {/* page.js */}
