@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant {
+  id         Int      @id @default(autoincrement())
+  name       String
+  category   String
+  address    String
+  latitude   Float
+  longitude  Float
+  phone      String?
+  closedDays Json
+  openTime   String
+  breakTime  String?
+  delivery   Boolean
+  forHere    Boolean
+  takeOut    Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  menu       Menu[]
+}
+
+model Menu {
+  id           Int        @id @default(autoincrement())
+  name         String
+  price        Float
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  @@index([restaurantId], map: "Menu_restaurantId_fkey")
+}

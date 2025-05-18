@@ -14,14 +14,18 @@ interface Restaurant {
   address: string;
   latitude: number;
   longitude: number;
-  phone: string | false;
-  closedDays: string[];
+  phone?: string | null;
+  closedDays: string[]; // DB 저장 시 JSON 배열로 처리됨
   openTime: string;
-  breakTime: string | false;
-  menu: { name: string; price: number }[];
+  breakTime?: string | null;
   delivery: boolean;
   forHere: boolean;
   takeOut: boolean;
+  menu: {
+    id: number;
+    name: string;
+    price: number;
+  }[];
 }
 
 // 상태 변수
@@ -42,15 +46,15 @@ export default function KakaoMapPage() {
   const [foodCategory, setFoodCategory] = useState<string[]>([]);  //중복처리를 위해 배열로 변경
 
 
-  // restaurants.json 불러오기
+  // DB 불러오기
   useEffect(() => {
     const fetchRestaurants = async () => {
-      // public 폴더의 json 파일 요청
-      const res = await fetch('/restaurants.json');
+      // api 폴더에서 data 요청
+      const res = await fetch('/api/restaurants');
       // json 파싱
       const data = await res.json();
       // 음식점 리스트 저장
-      setRestaurants(data.restaurants);
+      setRestaurants(data);
     };
     
     // 함수 호출
@@ -125,9 +129,9 @@ export default function KakaoMapPage() {
       const selectedOption = 
         diningOption.length === 0 ||  //배열에 아무것도 없으면 == 선택 안함 == '전체'
         diningOption.every((option) => {    //every: 모든 조건이 만족해야 할때 사용
-          if(option === "배달") return restaurant.usage.delivery;
-          if(option === "포장") return restaurant.usage.takeOut;
-          if(option === "매장식사") return restaurant.usage.forHere;
+          if(option === "배달") return restaurant.delivery;
+          if(option === "포장") return restaurant.takeOut;
+          if(option === "매장식사") return restaurant.forHere;
           return false;
         })
 
