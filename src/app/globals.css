@@ -3,13 +3,26 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 0;  /* 기본 margin 제거해야 불필요한 여백 x */
-  overflow: hidden; /* 불필요한 세로 스크롤 제거 */
+  margin: 0;
+  overflow: hidden; /* 불필요한 스크롤 제거 */
 }
 
-/* layout.tsx */
+/* 폰트 */
+@font-face {
+  font-family: 'Stylish';
+  src: url('/fonts/Stylish-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+/* 공통 텍스트 */
+.modal-text {
+  font-family: 'Stylish', sans-serif;
+  font-size: 18px;
+}
+
+/* 내비게이션 바 */
 .navbar {
-  align-items: center;  /* 세로축에 대해 중앙 정렬 */
+  align-items: center;
   color: white;
   display: flex;
   margin-bottom: 5%;
@@ -26,7 +39,7 @@ html, body {
   line-height: 0.7;
   margin: 15px 15px;
   position: relative;
-  text-decoration: none; /* Link의 기본 underline 제거 */
+  text-decoration: none;
 }
 
 .title-2 {
@@ -40,6 +53,7 @@ html, body {
   display: flex;
 }
 
+/* 설명 영역 */
 .description {
   font-size: 20px;
   margin-top: 15px;
@@ -47,9 +61,7 @@ html, body {
   padding: 30px;
 }
 
-
-
-/* page.tsx */
+/* 모달 오버레이 */
 .modal-overlay {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -63,18 +75,73 @@ html, body {
   z-index: 1000;
 }
 
+/* 모달 본체 */
 .modal-content {
-  background-color: white;
+  background-color: #DCEBEC; /* 수정한 배경색 */
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   max-height: 80vh;
-  overflow-y: auto;
-  padding: 24px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  width: 500px; /*모달창 크기 확대 */
+  overflow: hidden;
 }
 
-.modal-content button {
+/* 모달 이미지 */
+.modal-header-image {
+  width: 100%;
+  height: 250px; /* 여백 줄인 부분 */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.modal-header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 스크롤 가능한 본문 */
+.modal-body-scrollable {
+  padding: 8px; /* 위쪽 여백 줄임 */
+  overflow-y: auto;
+  max-height: calc(80vh - 140px); /* 이미지 높이 반영 */
+}
+
+/* 모달 탭 버튼 */
+.modal-tab-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.modal-tab-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 15px;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.modal-tab-buttons button.active {
+  background: #004094;
+  color: #fff;
+  border-bottom: 2px solid #004094;
+  font-weight: 600;
+}
+
+.modal-tab-content {
+  margin-top: 8px;
+}
+
+.modal-close-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -84,10 +151,11 @@ html, body {
   top: 12px;
 }
 
+/* 이용방법 아이콘 */
 .service-icons {
   display: flex;
   justify-content: space-between;
-  gap: 4px; /* 아이콘 사이 여백 */
+  gap: 4px;
   margin-top: 8px;
 }
 
@@ -98,14 +166,16 @@ html, body {
   text-align: center;
 }
 
+/* 구분선 */
 .special-hr {
   display: block;
-  margin: 0.0em 0;
+  margin: 0;
   border: none;
   border-top: 2px solid #aaa;
   height: 0;
 }
 
+/* 레이아웃 요소들 */
 .col-container {
   display: flex;
   flex-direction: column;
@@ -123,24 +193,21 @@ html, body {
   margin-top: 1%;
 }
 
-.filter-wrapper{
+.filter-wrapper {
   display: flex;
-
 }
 
 .map-container {
   background: #63666A;
-  border-radius: 10px; /* 모서리 둥글게 */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   color: white;
   font-size: 30px;
-  height: 70vh; /* 지도 상하 높이 소폭 늘림 */
-
+  height: 70vh;
   position: fixed;
   top: 22%;
   left: 15%;
   right: 5%;
-
 }
 
 .button-container {
@@ -149,14 +216,11 @@ html, body {
   margin-left: 10%;
   margin-bottom: 1%;
   flex-direction: column;
-  align-items: flex-end;  /*세로선 상에서 오른쪽 끝에 맞춤*/
-
-  position: fixed;  /*위치 고정*/
+  align-items: flex-end;
+  position: fixed;
   right: 86%;
   top: 22%;
-
 }
-
 
 .filter-button {
   display: flex;
@@ -166,11 +230,10 @@ html, body {
   background-color: white;
   border-radius: 20px;
   font-size: 14px;
-  white-space: nowrap;  /*글자 안내려가게*/
-  width: fit-content;  /*글자 길이에 버튼 크기 맞춤*/
+  white-space: nowrap;
+  width: fit-content;
   cursor: pointer;
   transition: 0.2s ease;
-
 }
 
 .filter-button:hover {
@@ -221,15 +284,14 @@ html, body {
   border-radius: 20px;
   gap: 10px;
   display: flex;
-  width: fit-content; /*글자 길이에 크기 맞춤 */
+  width: fit-content;
 }
 
 .top-bar {
   display: flex;
   gap: 10px;
   align-items: center;
-
-  position: fixed;   /*위치 고정*/
+  position: fixed;
   right: 5%;
   margin-top: 15vh;
 }
@@ -242,7 +304,7 @@ html, body {
   height: 80px;
   margin-left: 180px;
   box-sizing: border-box;
-  padding-top: 30px;     /* 위쪽에 공간을 만듦 */
+  padding-top: 30px;
   margin-top: -30px;
 }
 

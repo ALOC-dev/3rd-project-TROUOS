@@ -6,6 +6,12 @@ import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
 
+//이미지 추가 함수
+  const getRestaurantImage = (restaurantName: string) => {
+  const fileName = restaurantName.replace(/\s/g, ''); // 공백 제거 (예: '반지하 돈부리' → '반지하돈부리')
+  return `/${fileName}.png`;
+  };
+
 // 식당 정보 담을 인터페이스 
 interface Restaurant {
   id: number;
@@ -44,6 +50,9 @@ export default function KakaoMapPage() {
   const [diningOption, setDiningOption] = useState<string[]>([]); //중복처리를 위해 배열로 변경
   // 카테고리
   const [foodCategory, setFoodCategory] = useState<string[]>([]);  //중복처리를 위해 배열로 변경
+  //모달
+  const [activeTab, setActiveTab] = useState<'menu' | 'usage'>('menu');
+  
 
 
   // DB 불러오기
@@ -291,59 +300,96 @@ export default function KakaoMapPage() {
       </div>
       
       {/* 모달 */}
-      {isModalOpen && selectedRestaurant && (
-        <div
-          className="modal-overlay"
-          // 모달 외부 클릭 시, 닫기
-          onClick={() => setIsModalOpen(false)}
-        >
-          <div
-            className="modal-content"
-            // 모달 내부 클릭 시, 닫히지 않음
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* 닫기 버튼 */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              aria-label="x"
-            >
-              &times;
-            </button>
+{isModalOpen && selectedRestaurant && (
+  <div
+    className="modal-overlay"
+    onClick={() => setIsModalOpen(false)}
+  >
+    <div
+      className="modal-content modal-text"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* 이미지 영역 */}
+      <div className="modal-header-image">
+        <img
+          src={getRestaurantImage(selectedRestaurant.name)}
+          alt={selectedRestaurant.name}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/default.png';
+          }}
+        />
+      </div>
 
-            {/* 모달 내용 */}
-            <h2>{selectedRestaurant.name}</h2>
-            <hr className="special-hr" />
-            {/* p: 문단 나누기 , strong: 강조 */}
-            <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
-            <p><strong>📞 전화번호</strong> {selectedRestaurant.phone}</p>
-            <p><strong>📆 휴무일</strong> {
-              selectedRestaurant.closedDays.length > 0
-                ? selectedRestaurant.closedDays.map((day, index) => (
-                  <span key={index}>
-                    {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
-                  </span>
-                ))
-              : '매일 영업'
-            }</p>
-            <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
-            <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime}</p>
-            <hr />
+      {/* 닫기 버튼 */}
+      <button
+        className="modal-close-button"
+        onClick={() => setIsModalOpen(false)}
+        aria-label="close"
+      >
+        &times;
+      </button>
+
+      <div className="modal-body-scrollable">
+        <h2>{selectedRestaurant.name}</h2>
+        <hr className="special-hr" />
+        <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
+        <p><strong>📞 전화번호</strong> {selectedRestaurant.phone || '없음'}</p>
+        <p><strong>📆 휴무일</strong> {
+          selectedRestaurant.closedDays.length > 0
+            ? selectedRestaurant.closedDays.map((day, index) => (
+              <span key={index}>
+                {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
+              </span>
+            ))
+            : '매일 영업'
+        }</p>
+        <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
+        <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime || '없음'}</p>
+
+        <hr />
+
+        {/* 탭 버튼 */}
+        <div className="modal-tab-buttons">
+          <button
+            className={activeTab === 'menu' ? 'active' : ''}
+            onClick={() => setActiveTab('menu')}
+          >
+            대표 메뉴
+          </button>
+          <button
+            className={activeTab === 'usage' ? 'active' : ''}
+            onClick={() => setActiveTab('usage')}
+          >
+            이용 방법
+          </button>
+        </div>
+
+        {/* 탭 내용 */}
+        {activeTab === 'menu' && (
+          <div className="modal-tab-content">
             <p><strong>🍽️ 대표 메뉴</strong></p>
             <ul>
               {selectedRestaurant.menu.map((item, index) => (
                 <li key={index}>{item.name} - {item.price}원</li>
               ))}
             </ul>
-            <hr />
+          </div>
+        )}
+
+        {activeTab === 'usage' && (
+          <div className="modal-tab-content">
             <p><strong>🚗 이용 방법</strong></p>
             <div className="service-icons">
-              <img src={selectedRestaurant.delivery ? '/p-delivery.png' : '/i-delivery.png'} alt="delivery" />
-              <img src={selectedRestaurant.takeOut ? '/p-takeOut.png' : '/i-takeOut.png'} alt="takeOut" />
-              <img src={selectedRestaurant.forHere ? '/p-forHere.png' : '/i-forHere.png'} alt="forHere" />
+              <img src={selectedRestaurant.delivery ? '/p-delivery.png' : '/i-delivery.png'} alt="배달" />
+              <img src={selectedRestaurant.takeOut ? '/p-takeOut.png' : '/i-takeOut.png'} alt="포장" />
+              <img src={selectedRestaurant.forHere ? '/p-forHere.png' : '/i-forHere.png'} alt="매장식사" />
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
