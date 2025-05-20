@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function CategoryFilter({ foodCategory, setFoodCategory, setFilterSelector }: Props) {
-    const categories = ['이전', '한식', '중식', '일식', '카페', '기타'];
+    const categories = ['이전', '한식', '중식', '일식', '디저트', '주점', '기타'];
 
     return (
         <div className="button-container">
