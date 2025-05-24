@@ -5,6 +5,13 @@ import { useEffect, useState } from 'react';
 import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
+import { Stylish } from 'next/font/google'; //모달 폰트 적용
+import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
+
+const stylish = Stylish({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 //이미지 추가 함수
   const getRestaurantImage = (restaurantName: string) => {
@@ -53,6 +60,9 @@ export default function KakaoMapPage() {
   //모달
   const [activeTab, setActiveTab] = useState<'menu' | 'usage'>('menu');
   const [hovered, setHovered] = useState(false);
+  //키워드박스
+  const [isKeywordBoxOpen, setIsKeywordBoxOpen] = useState(true);
+
 
 
   // DB 불러오기
@@ -254,6 +264,28 @@ export default function KakaoMapPage() {
         />
       </div>
 
+      {/* ≡ 토글 버튼 (키워드박스용) */}
+      <button
+        onClick={() => {
+          setIsKeywordBoxOpen((prev) => !prev);
+          console.log('키워드 박스 상태:', !isKeywordBoxOpen);
+        }}
+        style={{
+          position: 'absolute',
+          top: '150px', // 이루매 이미지 밑에 적당히 떨어지게 조절
+          left: '20px',
+          background: 'none',
+          border: 'none',
+          fontSize: '28px',
+          cursor: 'pointer',
+          zIndex: 1000
+        }}
+      >
+        ≡
+      </button>
+
+      <KeywordBox isOpen={isKeywordBoxOpen} />
+
       <div className='main-container'>
         {/* 필터 버튼 */}
         <div className='filter-wrapper'>
@@ -298,7 +330,7 @@ export default function KakaoMapPage() {
     onClick={() => setIsModalOpen(false)}
   >
     <div
-      className="modal-content modal-text"
+      className={`modal-content modal-text ${stylish.className}`}
       onClick={(e) => e.stopPropagation()}
     >
       {/* 이미지 영역 */}

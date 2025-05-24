@@ -7,19 +7,6 @@ html, body {
   overflow: hidden; /* 불필요한 스크롤 제거 */
 }
 
-/* 폰트 */
-@font-face {
-  font-family: 'Stylish';
-  src: url('/fonts/Stylish-Regular.ttf') format('truetype');
-  font-weight: 400;
-}
-
-/* 공통 텍스트 */
-.modal-text {
-  font-family: 'Stylish', sans-serif;
-  font-size: 18px;
-}
-
 /* 내비게이션 바 */
 .navbar {
   align-items: center;
@@ -41,6 +28,7 @@ html, body {
   position: relative;
   text-decoration: none;
 }
+
 
 .title-2 {
   color: white;
@@ -87,6 +75,7 @@ html, body {
   position: relative;
   overflow: hidden;
 }
+
 
 /* 모달 이미지 */
 .modal-header-image {
@@ -193,6 +182,7 @@ html, body {
   margin-top: 1%;
 }
 
+
 .filter-wrapper {
   display: flex;
 }
@@ -221,6 +211,7 @@ html, body {
   right: 86%;
   top: 22%;
 }
+
 
 .filter-button {
   display: flex;
@@ -366,3 +357,57 @@ html, body {
     opacity: 0.3;
   }
 }
+
+@media (max-width: 768px) {
+  .map-container {
+    position: relative !important; 
+    width: 100vw !important;      
+    height: 60vh;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 auto;
+  }
+
+  .button-container {
+    position: relative;
+    margin: 16px auto 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    right: auto;
+    top: auto;
+  }
+
+  .title {
+    font-size: 24px;
+    margin: 12px auto 4px auto;
+    text-align: center;
+  }
+
+  .title-2 {
+    display: none;
+  }
+
+  .image-wrapper {
+    margin: 0 auto;
+    display: block;
+    width: 50px;
+    height: 70px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .service-icons img {
+    width: 80px;
+  }
+
+  .description {
+    display: none;
+  }
+}
+
+
