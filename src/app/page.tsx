@@ -52,7 +52,7 @@ export default function KakaoMapPage() {
   const [foodCategory, setFoodCategory] = useState<string[]>([]);  //중복처리를 위해 배열로 변경
   //모달
   const [activeTab, setActiveTab] = useState<'menu' | 'usage'>('menu');
-  
+  const [hovered, setHovered] = useState(false);
 
 
   // DB 불러오기
@@ -242,22 +242,14 @@ export default function KakaoMapPage() {
       </div>
       
       {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
-      <div 
-        className="image-wrapper"
-        onMouseOver={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.src = "/hello_Irumae.png";
-        }}
-
-        // 마우스 벗어나면 다시 원래 이미지로 되돌림
-        onMouseOut={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.src = "/irumae.jpg";
-        }}
+      <div
+        className={`image-wrapper ${hovered ? 'hovered' : ''}`}
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
       >
         <img
           className="irumae-img"
-          src="/irumae.jpg"
+          src={hovered ? "/hello_Irumae.png" : "/irumae.jpg"}
           alt="이루매"
         />
       </div>

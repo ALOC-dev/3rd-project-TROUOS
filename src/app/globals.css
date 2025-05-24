@@ -296,21 +296,73 @@ html, body {
   margin-top: 15vh;
 }
 
+.irumae-img {
+  width: 50px;
+  height: 70px;
+  display: block;
+  z-index: 0;
+  position: relative;
+  cursor: pointer;
+}
+
 .image-wrapper {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  width: 20px;
-  height: 80px;
-  margin-left: 180px;
-  box-sizing: border-box;
-  padding-top: 30px;
-  margin-top: -30px;
-}
-
-.irumae-img {
   width: 50px;
   height: 70px;
+  margin-left: 180px;
   margin-top: 30px;
-  display: inline-block;
+  overflow: visible;
+}
+
+.image-wrapper::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  filter: blur(6px);
+  animation: blink 8s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 2;
+
+  /* 마스크 적용 */
+  -webkit-mask-image: url('/irumae.jpg');
+  -webkit-mask-size: cover;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url('/irumae.jpg');
+  mask-size: cover;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
+}
+
+/* hover 시 shimmer 사라짐 */
+.image-wrapper:hover::before {
+  animation: none;
+  opacity: 0;
+}
+
+/* 깜빡이는 애니메이션 추가 */
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.3;
+  }
 }
