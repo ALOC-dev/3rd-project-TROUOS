@@ -249,7 +249,7 @@ export default function KakaoMapPage() {
       >
         <img
           className="irumae-img"
-          src={hovered ? "/hello_Irumae.png" : "/irumae.jpg"}
+          src={hovered ? "/heart_Irumae.png" : "/irumae.jpg"}
           alt="이루매"
         />
       </div>
