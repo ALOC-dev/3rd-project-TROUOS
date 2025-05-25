@@ -9,8 +9,7 @@ import { Stylish } from 'next/font/google'; //모달 폰트 적용
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
 
 const stylish = Stylish({
-  weight: '400',
-  subsets: ['latin'],
+  weight: '400', // 필수
 });
 
 //이미지 추가 함수
