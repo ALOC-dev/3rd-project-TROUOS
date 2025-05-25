@@ -326,9 +326,9 @@ export default function KakaoMapPage() {
           </div>
         </div>
       
-
+        {/* 키워드박스 식당 불러오기 */}
         <div className='main-container'>
-          <KeywordBox isOpen={isKeywordBoxOpen} />
+          <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants} />
 
           {/* 지도 표시 영역 */}
           <div className="map-container" id="map"></div>
