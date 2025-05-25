@@ -176,50 +176,107 @@ html, body {
 }
 
 /* 레이아웃 요소들 */
-.col-container {
+.final-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  box-sizing: border-box;
+  height: 100vh;;
 }
 
 .main-container {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 1%;
+  flex: 1 1 auto;          /* top-bar 아래 남은 공간 모두 차지 */
+  overflow: hidden;       
+  position: relative;       
 }
 
-.filter-wrapper {
+.top-bar-left {
   display: flex;
 }
 
+.top-bar-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;   /* seledted버튼과 reset버튼 중심을 맞춤 */
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;      /* top-bar-left와 top-bar-right를 각각 왼쪽/오른쪽 끝으로 붙임 */
+  align-items: center;
+  gap: 15px;
+  padding: 0 5%;        /* 왼쪽 오른쪽 5%씩 여백 */
+  height: 60px;         /* 고정 높이 */
+  z-index: 100;           
+}
+
 .map-container {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  bottom: 18%;
+  
   background: #63666A;
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   color: white;
   font-size: 30px;
-  height: 70vh;
-  position: fixed;
-  top: 22%;
-  left: 15%;
-  right: 5%;
 }
+
+/* 반응형 미디어 쿼리: 가로폭이 일정 이상으로 줄어들면 키워드박스와 seledted버튼이 축약됨 */
+@media (max-width: 920px) {
+  /* 조건 만족시 아래 css 적용 */
+  .keyword-box {
+    display: none !important;   /* css 숨김, !important: 강제적용 느낌? 없으면 적용이 안됨 왜지? */
+  }
+
+  .keyword-hamburger {
+    display: flex !important;
+  }
+
+  .selected-button {
+    display: none !important;
+  }
+
+  .selected-hamburger {
+    display: flex !important;
+  }
+}
+
+.keyword-box {
+  display: flex;
+  background: #ffffff;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  z-index: 500;                 /* 지도위에 뜨도록 */
+
+  position: absolute;           /* 부모(.main-container)를 기준으로 절대 위치 */
+  top: 2%;
+  left: 6%;                     
+  width: 300px;
+  height: 71%;               
+}
+
+.keyword-hamburger {
+  display: none;         
+  align-items: center;
+  justify-content: center;
+  background: #004094;
+  color: white;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  
+  position: absolute;
+  top: 1%;                         /* 키워드 박스 자리와 같게 */
+  left: 6%;
+  z-index: 200;
+}
+
 
 .button-container {
   display: flex;
   gap: 10px;
-  margin-left: 10%;
-  margin-bottom: 1%;
-  flex-direction: column;
-  align-items: flex-end;
-  position: fixed;
-  right: 86%;
-  top: 22%;
 }
 
 .filter-button {
@@ -259,7 +316,7 @@ html, body {
   background-color: white;
   border-radius: 20px;
   font-size: 14px;
-  width: fit-content;
+  width: max-content;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -287,13 +344,34 @@ html, body {
   width: fit-content;
 }
 
-.top-bar {
+.selected-hamburger {
+  display: none;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;     
+}
+
+.selected-hamburger .dropdown-list {
+  display: none;
+  position: absolute;
+  top: 115%;              /* 버튼 아래로 목록 띄움 */
+  
+  flex-direction: column;
+  gap: 5px;
+  
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 400;
+  width: max-content;   /* 컨테이너 폭이 가장 긴 항목에 맞도록 조절 */
+}
+
+.selected-hamburger:hover .dropdown-list {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  position: fixed;
-  right: 5%;
-  margin-top: 15vh;
 }
 
 .image-wrapper {
