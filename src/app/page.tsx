@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react';
 import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
+import { Stylish } from 'next/font/google'; //모달 폰트 적용
+import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
+
+const stylish = Stylish({
+  weight: '400', // 필수
+});
 
 //이미지 추가 함수
   const getRestaurantImage = (restaurantName: string) => {
@@ -52,7 +58,10 @@ export default function KakaoMapPage() {
   const [foodCategory, setFoodCategory] = useState<string[]>([]);  //중복처리를 위해 배열로 변경
   //모달
   const [activeTab, setActiveTab] = useState<'menu' | 'usage'>('menu');
-  
+  const [hovered, setHovered] = useState(false);
+  //키워드박스
+  const [isKeywordBoxOpen, setIsKeywordBoxOpen] = useState(true);
+
 
 
   // DB 불러오기
@@ -242,56 +251,61 @@ export default function KakaoMapPage() {
       />
       
       {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
-      <div 
-        className="image-wrapper"
-        onMouseOver={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.src = "/hello_Irumae.png";
-        }}
-
-        // 마우스 벗어나면 다시 원래 이미지로 되돌림
-        onMouseOut={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.src = "/irumae.jpg";
-        }}
+      <div
+        className={`image-wrapper ${hovered ? 'hovered' : ''}`}
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
       >
         <img
           className="irumae-img"
-          src="/irumae.jpg"
+          src={hovered ? "/heart_Irumae.png" : "/irumae.jpg"}
           alt="이루매"
         />
       </div>
 
       <div className='final-container'>
         <div className='top-bar'>
-          {/* 필터 버튼 */}
           <div className='top-bar-left'>
+            {/* ≡ 토글 버튼 (키워드박스용) */}
+            <button
+              onClick={() => {
+                setIsKeywordBoxOpen((prev) => !prev);
+                console.log('키워드 박스 상태:', !isKeywordBoxOpen);
+              }}
+              className='keyword-toggle'
+            >
+              ≡
+            </button>
 
-            {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
-            {filterSelector === '전체' && (
-              <FilterSelector 
-                filterSelector={filterSelector}
-                setFilterSelector={setFilterSelector}
-              />
-            )}
+            {/* 필터 버튼 */}
+            <div className='filter-wrapper'>
+              {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
+              {filterSelector === '전체' && (
+                <FilterSelector 
+                  filterSelector={filterSelector}
+                  setFilterSelector={setFilterSelector}
+                />
+              )}
 
-          
-            {filterSelector === '음식 카테고리' && (
-              <FoodCategory
-                foodCategory={foodCategory}
-                setFoodCategory={handleFoodCategory}
-                setFilterSelector={setFilterSelector}
-              />
-            )}
+            
+              {filterSelector === '음식 카테고리' && (
+                <FoodCategory
+                  foodCategory={foodCategory}
+                  setFoodCategory={handleFoodCategory}
+                  setFilterSelector={setFilterSelector}
+                />
+              )}
 
-            {filterSelector === '이용 방법' && (
-              <DiningOption
-                diningOption={diningOption}
-                setDiningOption={handleDiningOption}
-                setFilterSelector={setFilterSelector}
-              />
-            )}
+              {filterSelector === '이용 방법' && (
+                <DiningOption
+                  diningOption={diningOption}
+                  setDiningOption={handleDiningOption}
+                  setFilterSelector={setFilterSelector}
+                />
+              )}
+            </div>
           </div>
+            
 
           <div className='top-bar-right'>
             <div>
@@ -314,16 +328,7 @@ export default function KakaoMapPage() {
       
 
         <div className='main-container'>
-          {/* 키워드 박스 */}
-          <div className='keyword-box'>
-            키워드 박스
-            ...
-          </div>
-
-          <div className='keyword-hamburger'>
-            ☰
-          </div>
-
+          <KeywordBox isOpen={isKeywordBoxOpen} />
 
           {/* 지도 표시 영역 */}
           <div className="map-container" id="map"></div>
@@ -333,60 +338,60 @@ export default function KakaoMapPage() {
       
       
       {/* 모달 */}
-      {isModalOpen && selectedRestaurant && (
-        <div
-          className="modal-overlay"
-          onClick={() => setIsModalOpen(false)}
-        >
+        {isModalOpen && selectedRestaurant && (
           <div
-            className="modal-content modal-text"
-            onClick={(e) => e.stopPropagation()}
+            className="modal-overlay"
+            onClick={() => setIsModalOpen(false)}
           >
-            {/* 이미지 영역 */}
-            <div className="modal-header-image">
-              <img
-                src={getRestaurantImage(selectedRestaurant.name)}
-                alt={selectedRestaurant.name}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/default.png';
-                }}
-              />
-            </div>
-
-            {/* 닫기 버튼 */}
-            <button
-              className="modal-close-button"
-              onClick={() => setIsModalOpen(false)}
-              aria-label="close"
+            <div
+              className={`modal-content modal-text ${stylish.className}`}
+              onClick={(e) => e.stopPropagation()}
             >
-              &times;
-            </button>
+              {/* 이미지 영역 */}
+              <div className="modal-header-image">
+                <img
+                  src={getRestaurantImage(selectedRestaurant.name)}
+                  alt={selectedRestaurant.name}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/default.png';
+                  }}
+                />
+              </div>
 
-            <div className="modal-body-scrollable">
-              <h2>{selectedRestaurant.name}</h2>
-              <hr className="special-hr" />
-              <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
-              <p><strong>📞 전화번호</strong> {selectedRestaurant.phone || '없음'}</p>
-              <p><strong>📆 휴무일</strong> {
-                selectedRestaurant.closedDays.length > 0
-                  ? selectedRestaurant.closedDays.map((day, index) => (
-                    <span key={index}>
-                      {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
-                    </span>
-                  ))
-                  : '매일 영업'
-              }</p>
-              <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
-              <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime || '없음'}</p>
+              {/* 닫기 버튼 */}
+              <button
+                className="modal-close-button"
+                onClick={() => setIsModalOpen(false)}
+                aria-label="close"
+              >
+                &times;
+              </button>
 
-              <hr />
+              <div className="modal-body-scrollable">
+                <h2>{selectedRestaurant.name}</h2>
+                <hr className="special-hr" />
+                <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
+                <p><strong>📞 전화번호</strong> {selectedRestaurant.phone || '없음'}</p>
+                <p><strong>📆 휴무일</strong> {
+                  selectedRestaurant.closedDays.length > 0
+                    ? selectedRestaurant.closedDays.map((day, index) => (
+                      <span key={index}>
+                        {day.charAt(0).toUpperCase() + day.slice(1)}{index < selectedRestaurant.closedDays.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                    : '매일 영업'
+                }</p>
+                <p><strong>🕙 영업 시간</strong> {selectedRestaurant.openTime}</p>
+                <p><strong>⛔️ 브레이크 타임</strong> {selectedRestaurant.breakTime || '없음'}</p>
 
-              {/* 탭 버튼 */}
-              <div className="modal-tab-buttons">
-                <button
-                  className={activeTab === 'menu' ? 'active' : ''}
-                  onClick={() => setActiveTab('menu')}
-                >
+                <hr />
+
+                {/* 탭 버튼 */}
+                <div className="modal-tab-buttons">
+                  <button
+                    className={activeTab === 'menu' ? 'active' : ''}
+                    onClick={() => setActiveTab('menu')}
+                  >
                   대표 메뉴
                 </button>
                 <button
