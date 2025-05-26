@@ -108,7 +108,7 @@ export default function KakaoMapPage() {
     // 원 그리기
     const circle = new window.kakao.maps.Circle({
       center: new window.kakao.maps.LatLng(37.583840, 127.059019),
-      radius: 500, // 반경
+      radius: 640, // 반경
       strokeWeight: 1,
       strokeColor: '#9BCBE8',
       strokeOpacity: 1,
