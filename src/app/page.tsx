@@ -104,6 +104,9 @@ export default function KakaoMapPage() {
     const map = new window.kakao.maps.Map(container, options);
     // 중심 좌표 (시립대)
     const centerPosition = new window.kakao.maps.LatLng(37.584863,127.057734);
+    // 확대/축소 범위 제한
+    map.setMinLevel(1);
+    map.setMaxLevel(4);
 
     // 원 그리기
     const circle = new window.kakao.maps.Circle({
