@@ -96,7 +96,7 @@ export default function KakaoMapPage() {
     // 지도 담을 DOM
     const container = document.getElementById('map');
     const options = {
-      center: new window.kakao.maps.LatLng(37.583840, 127.059019), // 초기 좌표 (시립대 중심)
+      center: new window.kakao.maps.LatLng(37.58486792395623, 127.05777508367385), // 초기 좌표 (시립대 중심)
       level: 4 // 확대 레벨 (작을수록 확대)
     };
 
@@ -261,6 +261,12 @@ export default function KakaoMapPage() {
           src={hovered ? "/heart_Irumae.png" : "/irumae.jpg"}
           alt="이루매"
         />
+      </div>
+
+      <div>
+        <button className='login-button'>
+          로그인
+        </button>
       </div>
 
       <div className='final-container'>
