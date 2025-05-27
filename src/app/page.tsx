@@ -96,19 +96,19 @@ export default function KakaoMapPage() {
     // 지도 담을 DOM
     const container = document.getElementById('map');
     const options = {
-      center: new window.kakao.maps.LatLng(37.58486792395623, 127.05777508367385), // 초기 좌표 (시립대 중심)
+      center: new window.kakao.maps.LatLng(37.584863,127.057734), // 초기 좌표 (시립대 중심)
       level: 4 // 확대 레벨 (작을수록 확대)
     };
 
     // 지도 객체 생성
     const map = new window.kakao.maps.Map(container, options);
     // 중심 좌표 (시립대)
-    const centerPosition = new window.kakao.maps.LatLng(37.583840, 127.059019);
+    const centerPosition = new window.kakao.maps.LatLng(37.584863,127.057734);
 
     // 원 그리기
     const circle = new window.kakao.maps.Circle({
-      center: new window.kakao.maps.LatLng(37.583840, 127.059019),
-      radius: 640, // 반경
+      center: new window.kakao.maps.LatLng(37.584863,127.057734),
+      radius: 500, // 반경
       strokeWeight: 1,
       strokeColor: '#9BCBE8',
       strokeOpacity: 1,
