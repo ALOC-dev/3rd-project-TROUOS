@@ -232,7 +232,7 @@ html, body {
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   clip-path: inset(0 round 0 8px 8px 0);    /* 테두리 내부를 잘라내는 방식으로 테두리 둥글게 */
   border-right: 1px solid #ccc;
-  transform: translateX(-100%) ;
+  transform: translateX(-90%) ;
   transition: transform 0.3s ease-in-out;
   overflow-y: auto;
   flex-direction: column;
@@ -381,10 +381,24 @@ html, body {
   font-size: 14px;
   border-radius: 10px;
   padding: 3px 7px;
-
   cursor: pointer;
-
 }
+
+.signup-button {
+  display: flex;
+  position: fixed;
+  top: 7%;
+  right: 3%;
+
+  background-color: #005EB8;
+  color: white;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
+
 
 .irumae-img {
   width: 50px;
@@ -486,16 +500,6 @@ html, body {
     gap: 8px;
     right: auto;
     top: auto;
-  }
-
-  .title {
-    font-size: 24px;
-    margin: 12px auto 4px auto;
-    text-align: center;
-  }
-
-  .title-2 {
-    display: none;
   }
 
   .image-wrapper {

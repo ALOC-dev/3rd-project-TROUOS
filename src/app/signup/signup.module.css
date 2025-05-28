@@ -1,0 +1,80 @@
+.background {
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, #f0f0f0, #B9D9EB);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.signUpBox {
+    max-width: 500px;
+    margin-top: 30px;
+    padding: 32px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    background: white;
+    
+}
+
+.boxContainer {
+    display: flex;
+    gap: 7px;
+}
+
+.emailBox {
+    width: 310px;
+    height: 20px;
+}
+
+.verifyNumBox {
+    width: 310px;
+    height: 20px;
+}
+
+.IDBox {
+    width: 330px;
+    height: 20px;
+}
+
+.pwBox {
+    width: 400px;
+    height: 20px;
+}
+
+.submitButtonContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.submitButton {
+   background-color: #B9D9EB;
+    border-radius: 10px;
+    border: 1px solid #9BCBEB;
+    font-size: 14px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.submitButton:hover {
+    background-color: #9BCBEB;
+}
+
+.buttonContainer {
+    background-color: #B9D9EB;
+    border-radius: 10px;
+    border: 1px solid #9BCBEB;
+    font-size: 14px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buttonContainer:hover {
+    background-color: #9BCBEB;
+}

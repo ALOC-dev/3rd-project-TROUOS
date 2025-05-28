@@ -7,6 +7,8 @@ import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
 import { Stylish } from 'next/font/google'; //모달 폰트 적용
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
+import { useRouter } from 'next/navigation';
+
 
 const stylish = Stylish({
   weight: '400', // 필수
@@ -239,6 +241,9 @@ export default function KakaoMapPage() {
     )
   }
 
+  const router = useRouter();
+  console.log(router);
+
   return (
     <div>
       {/* kakao map sdk 불러오기 */}
@@ -269,6 +274,12 @@ export default function KakaoMapPage() {
       <div>
         <button className='login-button'>
           로그인
+        </button>
+        <button 
+          className='signup-button'
+          onClick={() => router.push('/signup')}
+        >
+          회원가입
         </button>
       </div>
 
