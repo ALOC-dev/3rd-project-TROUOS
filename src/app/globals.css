@@ -495,6 +495,24 @@ html, body {
   .service-icons img {
     width: 80px;
   }
+
+  .keyword-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    bottom: 0;
+    left: 50%;                     
+    width: 90vw;
+    height: 90vw;
+    transform: translateX(-50%) translateY(100%);
+    clip-path: inset(8px 8px 0 0 round 8px 8px 0 0);
+    transition: transform 0.3s ease-in-out;               
+  }
+
+  .keyword-box.open {
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 
