@@ -275,6 +275,8 @@ export default function KakaoMapPage() {
         <img
           className="irumae-mask"
           src="/irumae_mask.png"
+          alt='이루매 마스크'
+          style={{ opacity: hovered ? 0 : 1 }}
         />
       </div>
 

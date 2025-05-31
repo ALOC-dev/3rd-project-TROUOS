@@ -1,10 +1,12 @@
-//회원가입창 만들어야하는디...
+
 'use client';
 import { useState } from 'react';
 import styles from './signup.module.css';
+import { useParams } from 'next/navigation';
 
 
 export default function Signup() {
+    const {signup} = useParams();
 
     const isValidPassword = (pw: string): boolean => {
         const lengthRule = pw.length >= 8;
