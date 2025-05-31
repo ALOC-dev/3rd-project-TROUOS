@@ -292,9 +292,9 @@ export default function KakaoMapPage() {
                 setIsKeywordBoxOpen((prev) => !prev);
                 console.log('키워드 박스 상태:', !isKeywordBoxOpen);
               }}
-              className='keyword-toggle'
+              className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
             >
-              ≡
+              {isKeywordBoxOpen ? '×' : '≡'}
             </button>
 
             {/* 필터 버튼 */}
@@ -348,7 +348,12 @@ export default function KakaoMapPage() {
       
         {/* 키워드박스 식당 불러오기 */}
         <div className='main-container'>
-          <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants} />
+          <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants}
+          onRestaurantClick={(restaurant) => {
+          setSelectedRestaurant(restaurant);
+          setIsModalOpen(true);
+        }}
+      />
 
           {/* 지도 표시 영역 */}
           <div className="map-container" id="map"></div>

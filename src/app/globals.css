@@ -174,7 +174,7 @@ html, body {
 .main-container {
   display: flex;
   flex: 1 1 auto;          /* top-bar 아래 남은 공간 모두 차지 */
-  overflow: hidden;       
+  overflow: visible;       
   position: relative;       
 }
 
@@ -226,40 +226,57 @@ html, body {
 }
 
 .keyword-box {
-  display: flex;
+  position: absolute;
+  top: 0px;
+  left: 5%;
+  width: 320px;
+  height: 80%;
   background: #ffffff;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  clip-path: inset(0 round 0 8px 8px 0);    /* 테두리 내부를 잘라내는 방식으로 테두리 둥글게 */
-  border-right: 1px solid #ccc;
-  transform: translateX(-90%) ;
-  transition: transform 0.3s ease-in-out;
-  overflow-y: auto;
-  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  z-index: 999;                 /* 지도위에 뜨도록 */
+  overflow-y: auto;
+  max-height: calc(100% - 60px);
 
-  position: absolute;           /* 부모(.main-container)를 기준으로 절대 위치 */
-  top: 2%;
-  left: 0;                     
-  width: 280px;
-  height: 71%;               
+  /* 등장 효과 기본값 */
+  transform: scale(0.8) translateX(-10%);
+  transform-origin: top left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 999;
 }
 
 .keyword-box.open {
-  transform: translateX(0);
+  transform: scale(1) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 
+
+
 .keyword-toggle {
-  display: flex;         
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: #004094;
-  color: white;
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
   border-radius: 10px;
   height: 30px;
+  width: 30px;
+  font-size: 20px;
   cursor: pointer;
   z-index: 1000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.keyword-toggle:hover {
+  background: #0077C8;
+  transform: scale(1.1);
 }
 
 .filter-wrapper {
@@ -466,6 +483,8 @@ html, body {
   }
 }
 
+
+
 @media (max-width: 768px) {
   .map-container {
     position: relative !important; 
@@ -481,6 +500,7 @@ html, body {
   .button-container {
     position: relative;
     margin: 16px auto 0 auto;
+
     flex-direction: column;
     align-items: center;
     gap: 8px;
@@ -497,21 +517,36 @@ html, body {
   }
 
   .keyword-box {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    bottom: 0;
-    left: 50%;                     
-    width: 90vw;
-    height: 90vw;
-    transform: translateX(-50%) translateY(100%);
-    clip-path: inset(8px 8px 0 0 round 8px 8px 0 0);
-    transition: transform 0.3s ease-in-out;               
-  }
+  position: absolute;
+  top: 55px;
+  left: 5%;
+  width: 280px;
+  height: 71%;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  overflow-y: auto;
+  max-height: calc(100% - 60px);
 
-  .keyword-box.open {
-    transform: translateX(-50%) translateY(0);
+  /* 등장 효과 기본값 */
+  transform: scale(0.8) translateX(-20%);
+  transform-origin: top left;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.keyword-box.open {
+  transform: scale(1) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+  .keyword-box::before {
+    display: none; /* 모바일에선 꼬리 숨김 */
   }
 }
 
