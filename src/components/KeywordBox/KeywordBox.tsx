@@ -13,6 +13,7 @@ interface Restaurant {
 interface KeywordBoxProps {
     isOpen: boolean;
     restaurants: Restaurant[];
+    onRestaurantClick: (restaurant: Restaurant) => void; //모달 뜨게끔 추가
 }
 
 const getClosedDays = (closedDays: any): string[] => {
@@ -31,7 +32,7 @@ const getRestaurantImage = (restaurantName: string) => {
     return `/${fileName}.png`;
 };
 
-const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants }) => {
+const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaurantClick }) => {
     return (
         <div
             className={`keyword-box ${isOpen ? 'open' : ''}`}
@@ -39,6 +40,7 @@ const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants }) => {
         {restaurants.map((r) => (
             <div
                 key={r.id}
+                onClick={() => onRestaurantClick(r)}
                 style={{
                     width: '100%',
                     borderBottom: '1px solid #eee',
