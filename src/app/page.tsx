@@ -257,17 +257,24 @@ export default function KakaoMapPage() {
           }); 
         }}
       />
-      
-      {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
-      <div
-        className={`image-wrapper ${hovered ? 'hovered' : ''}`}
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
-      >
+
+      <div className='irumae-wrapper'>
+        {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
+        <div
+          className={`image-wrapper ${hovered ? 'hovered' : ''}`}
+          onMouseOver={() => setHovered(true)}
+          onMouseOut={() => setHovered(false)}
+        >
+          <img
+            className="irumae-img"
+            src={hovered ? "/heart_Irumae.png" : "/irumae.png"}
+            alt="이루매"
+          />
+        </div>
+
         <img
-          className="irumae-img"
-          src={hovered ? "/heart_Irumae.png" : "/irumae.png"}
-          alt="이루매"
+          className="irumae-mask"
+          src="/irumae_mask.png"
         />
       </div>
 
