@@ -8,6 +8,7 @@ interface Restaurant {
     address: string;
     openTime: string;
     closedDays: string[];
+    imageUrl: string;
 }
 
 interface KeywordBoxProps {
@@ -26,12 +27,6 @@ const getClosedDays = (closedDays: any): string[] => {
     }
 };
 
-
-const getRestaurantImage = (restaurantName: string) => {
-    const fileName = restaurantName.replace(/\s/g, '');
-    return `/${fileName}.png`;
-};
-
 const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaurantClick }) => {
     return (
         <div
@@ -48,10 +43,10 @@ const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaura
                 }}
             >
                 <img
-                    src={getRestaurantImage(r.name)}
+                    src={r.imageUrl}
                     alt={r.name}
                     onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/default.png';
+                        (e.target as HTMLImageElement).src = '/default.png';
                     }}
                     style={{
                         width: '100%',

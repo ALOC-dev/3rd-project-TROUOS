@@ -9,12 +9,6 @@ import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 �
 import { useRouter } from 'next/navigation';
 declare const kakao: any;
 
-//이미지 추가 함수
-  const getRestaurantImage = (restaurantName: string) => {
-  const fileName = restaurantName.replace(/\s/g, ''); // 공백 제거 (예: '반지하 돈부리' → '반지하돈부리')
-  return `/${fileName}.png`;
-  };
-
 // 식당 정보 담을 인터페이스 
 interface Restaurant {
   id: number;
@@ -30,6 +24,7 @@ interface Restaurant {
   delivery: boolean;
   forHere: boolean;
   takeOut: boolean;
+  imageUrl: string;
   menu: {
     id: number;
     name: string;
@@ -431,7 +426,7 @@ export default function KakaoMapPage() {
               {/* 이미지 영역 */}
               <div className="modal-header-image">
                 <img
-                  src={getRestaurantImage(selectedRestaurant.name)}
+                  src={selectedRestaurant.imageUrl}
                   alt={selectedRestaurant.name}
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/default.png';
