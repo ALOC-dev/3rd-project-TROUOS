@@ -359,7 +359,7 @@ export default function KakaoMapPage() {
         <div className='main-container'>
           <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants}
           onRestaurantClick={(restaurant) => {
-          setSelectedRestaurant(restaurant);
+          setSelectedRestaurant(restaurant as Restaurant);
           setIsModalOpen(true);
         }}
       />
