@@ -303,7 +303,7 @@ export default function KakaoMapPage() {
               }}
               className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
             >
-              {isKeywordBoxOpen ? '×' : '≡'}
+              <span className="hamburger-icon">{isKeywordBoxOpen ? '×' : '≡'}</span>
             </button>
 
             {/* 필터 버튼 */}
