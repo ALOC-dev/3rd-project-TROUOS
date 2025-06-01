@@ -8,6 +8,7 @@ import FoodCategory from '@/components/Filter/FoodCategory';
 import { Stylish } from 'next/font/google'; //모달 폰트 적용
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
 import { useRouter } from 'next/navigation';
+declare const kakao: any;
 
 
 const stylish = Stylish({
@@ -76,7 +77,6 @@ export default function KakaoMapPage() {
       // 음식점 리스트 저장
       setRestaurants(data);
     };
-    
     // 함수 호출
     fetchRestaurants();
   }, []);
@@ -89,6 +89,19 @@ export default function KakaoMapPage() {
     }
   }, [restaurants, foodCategory, diningOption]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
 
+  let alertTimeout: NodeJS.Timeout | null = null;
+
+  const showAlert = (message: string) => {
+    const alertDiv = document.getElementById("alert");
+    if (!alertDiv) return;
+    alertDiv.textContent = message;
+    alertDiv.style.display = "block";
+
+    if (alertTimeout) clearTimeout(alertTimeout);
+    alertTimeout = setTimeout(() => {
+      alertDiv.style.display = "none";
+    }, 2000); // 2초 후 자동 숨김
+  };
 
   // 지도 초기화 함수
   const initMap = () => {
@@ -109,6 +122,15 @@ export default function KakaoMapPage() {
     // 확대/축소 범위 제한
     map.setMinLevel(1);
     map.setMaxLevel(4);
+    // 확대/축소 범위 초과 시 이벤트
+    window.kakao.maps.event.addListener(map, 'zoom_changed', () => {
+      const level = map.getLevel();
+      if (level === 1) {
+        showAlert("최대 확대 범위입니다.");
+      } else if (level === 4) {
+        showAlert("최대 축소 범위입니다.");
+      }
+    });
 
     // 원 그리기
     const circle = new window.kakao.maps.Circle({
@@ -257,6 +279,23 @@ export default function KakaoMapPage() {
           }); 
         }}
       />
+
+    <div
+      id="alert"
+      style={{
+        display: 'none',
+        position: 'fixed',
+        top: '15%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        backgroundColor: '#ff4d4f',
+        color: 'white',
+        padding: '10px 20px',
+        borderRadius: '6px',
+        zIndex: 9999,
+      }}
+    >
+    </div>
 
       <div className='irumae-wrapper'>
         {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}

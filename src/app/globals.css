@@ -250,6 +250,18 @@ html, body {
   font-size: 30px;
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* 반응형 미디어 쿼리: 가로폭이 일정 이상으로 줄어들면 키워드박스와 seledted버튼이 축약됨 */
 @media (max-width: 920px) {
   .selected-button {
@@ -501,7 +513,6 @@ html, body {
 
 
 @media (max-width: 768px) {
-
   .button-container {
     position: fixed;
     margin: 16px auto 0 auto;
