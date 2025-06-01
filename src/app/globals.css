@@ -50,6 +50,40 @@ html, body {
   padding: 30px;
 }
 
+.login-wrapper {
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  display: flex;
+  gap: 5px;
+}
+
+.login-button, .signup-button {
+  position: static; /* fixed 제거 */
+  background-color: transparent;
+  color: #005EB8;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 3px 7px;
+  cursor: pointer;
+  box-shadow: none;
+  border: none;
+}
+
+/* 로그인 회원가입 버튼 사이 구분선 */
+.divider {
+  display: inline-block;
+  width: 1px;          
+  height: 16px;    
+  background-color: #005EB8; 
+  margin: 0 10px;     
+  align-self: center;
+}
+
+
+
+
+
 /* 모달 오버레이 */
 .modal-overlay {
   align-items: center;
@@ -166,13 +200,13 @@ html, body {
 }
 
 /* 레이아웃 요소들 */
-.final-container {
+.top-container {
   display: flex;
   flex-direction: column;
   height: 100vh;;
 }
 
-.main-container {
+.keyword-container {
   display: flex;
   flex: 1 1 auto;          /* top-bar 아래 남은 공간 모두 차지 */
   overflow: visible;       
@@ -276,7 +310,7 @@ html, body {
 }
 
 .keyword-toggle:hover {
-  background: #0077C8;
+  background: #005EB8;
   transform: scale(1.1);
 }
 
@@ -385,34 +419,6 @@ html, body {
 
 .selected-hamburger:hover .dropdown-list {
   display: flex;
-}
-
-.login-button {
-  display: flex;
-  position: fixed;
-  top: 2%;
-  right: 3%;
-
-  background-color: #005EB8;
-  color: white;
-  font-size: 14px;
-  border-radius: 10px;
-  padding: 3px 7px;
-  cursor: pointer;
-}
-
-.signup-button {
-  display: flex;
-  position: fixed;
-  top: 7%;
-  right: 3%;
-
-  background-color: #005EB8;
-  color: white;
-  font-size: 14px;
-  border-radius: 10px;
-  padding: 3px 7px;
-  cursor: pointer;
 }
 
 .irumae-wrapper {
@@ -538,17 +544,17 @@ html, body {
   z-index: 999;
 }
 
-.keyword-box.open {
-  transform: scale(1) translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-  .keyword-box::before {
-    display: none; /* 모바일에선 꼬리 숨김 */
+  .keyword-box.open {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .description {
-  display: none !important;
-}
+    .keyword-box::before {
+      display: none; /* 모바일에선 꼬리 숨김 */
+    }
+
+    .description {
+    display: none !important;
+  }
 }

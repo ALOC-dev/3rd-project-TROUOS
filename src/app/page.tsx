@@ -280,10 +280,11 @@ export default function KakaoMapPage() {
         />
       </div>
 
-      <div>
+      <div className='login-wrapper'>
         <button className='login-button'>
           로그인
         </button>
+        <span className="divider"></span>
         <button 
           className='signup-button'
           onClick={() => router.push('/signup')}
@@ -292,7 +293,7 @@ export default function KakaoMapPage() {
         </button>
       </div>
 
-      <div className='final-container'>
+      <div className='top-container'>
         <div className='top-bar'>
           <div className='top-bar-left'>
             {/* ≡ 토글 버튼 (키워드박스용) */}
@@ -356,7 +357,7 @@ export default function KakaoMapPage() {
         </div>
       
         {/* 키워드박스 식당 불러오기 */}
-        <div className='main-container'>
+        <div className='keyword-container'>
           <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants}
           onRestaurantClick={(restaurant) => {
           setSelectedRestaurant(restaurant as Restaurant);
