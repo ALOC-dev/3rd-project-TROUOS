@@ -58,6 +58,9 @@ export default function KakaoMapPage() {
   const [hovered, setHovered] = useState(false);
   //키워드박스
   const [isKeywordBoxOpen, setIsKeywordBoxOpen] = useState(true);
+  //로그인 모달
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
 
 
 
@@ -314,9 +317,20 @@ export default function KakaoMapPage() {
       </div>
 
       <div className='login-wrapper'>
-        <button className='login-button'>
+        <button className='login-button'
+          onClick={() => setIsLoginModalOpen(prev => !prev)}>
           로그인
         </button>
+
+        {isLoginModalOpen && (
+          <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
+            <input type="text" placeholder="아이디" className="login-input" />
+            <input type="password" placeholder="비밀번호" className="login-input" />
+            <button className="login-submit-button">로그인</button>
+          </div>
+        )}
+
+        
         <span className="divider"></span>
         <button 
           className='signup-button'

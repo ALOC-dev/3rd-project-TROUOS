@@ -54,10 +54,45 @@ html, body {
 
 .login-wrapper {
   position: fixed;
+  z-index: 1001;
   top: 2%;
   right: 3%;
   display: flex;
   gap: 5px;
+}
+
+.login-dropdown {
+  position: absolute;
+  top: 100%; /* 로그인 버튼 바로 아래 */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 8px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-input {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.login-submit-button {
+  background-color: #005EB8;
+  color: white;
+  padding: 8px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .login-button, .signup-button {
