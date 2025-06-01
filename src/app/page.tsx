@@ -5,15 +5,9 @@ import { useEffect, useState } from 'react';
 import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
-import { Stylish } from 'next/font/google'; //모달 폰트 적용
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
 import { useRouter } from 'next/navigation';
 declare const kakao: any;
-
-
-const stylish = Stylish({
-  weight: '400', // 필수
-});
 
 //이미지 추가 함수
   const getRestaurantImage = (restaurantName: string) => {
@@ -417,7 +411,7 @@ export default function KakaoMapPage() {
             onClick={() => setIsModalOpen(false)}
           >
             <div
-              className={`modal-content modal-text ${stylish.className}`}
+              className="modal-content modal-text"
               onClick={(e) => e.stopPropagation()}
             >
               {/* 이미지 영역 */}
