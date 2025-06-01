@@ -203,7 +203,8 @@ html, body {
 .top-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;;
+  height: 90vh;
+  margin-top: 30px;
 }
 
 .keyword-container {

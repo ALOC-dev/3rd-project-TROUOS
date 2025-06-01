@@ -367,7 +367,6 @@ export default function KakaoMapPage() {
 
           {/* 지도 표시 영역 */}
           <div className="map-container" id="map"></div>
-
         </div>
       </div>
       
