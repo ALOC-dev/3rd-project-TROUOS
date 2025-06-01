@@ -288,7 +288,7 @@ export default function KakaoMapPage() {
         top: '15%',
         left: '50%',
         transform: 'translateX(-50%)',
-        backgroundColor: '#ff4d4f',
+        backgroundColor: '#00B398',
         color: 'white',
         padding: '10px 20px',
         borderRadius: '6px',
