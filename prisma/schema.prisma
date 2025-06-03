@@ -23,7 +23,7 @@ model Restaurant {
   takeOut    Boolean
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  imageUrl   String @default("https://trouos-restaurants-images.s3.ap-northeast-2.amazonaws.com/default.png")
+  imageUrl   String   @default("https://trouos-restaurants-images.s3.ap-northeast-2.amazonaws.com/default.png")
   menu       Menu[]
 }
 

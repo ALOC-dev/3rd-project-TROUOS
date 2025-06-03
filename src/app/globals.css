@@ -1,5 +1,5 @@
 html, body {
-  background-color: #B9D9EB; /* 배경색 */
+  background: linear-gradient(to bottom right, #f0f0f0, #B9D9EB);
   display: flex;
   flex-direction: column;
   height: 100%;
