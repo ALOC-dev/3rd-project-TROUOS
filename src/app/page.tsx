@@ -1,12 +1,13 @@
 'use client'; // 
 
 import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러오기 위해
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import FilterSelector from '@/components/Filter/FilterSelector';
 import DiningOption from '@/components/Filter/DiningOption';
 import FoodCategory from '@/components/Filter/FoodCategory';
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
 import { useRouter } from 'next/navigation';
+import SearchBar from '@/components/SearchBar/SearchBar';
 declare const kakao: any;
 
 // 식당 정보 담을 인터페이스 
@@ -55,6 +56,8 @@ export default function KakaoMapPage() {
   const [isKeywordBoxOpen, setIsKeywordBoxOpen] = useState(true);
   //로그인 모달
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  //지도 저장
+  const mapRef = useRef<kakao.maps.Map | null>(null);
 
 
 
@@ -109,6 +112,8 @@ export default function KakaoMapPage() {
 
     // 지도 객체 생성
     const map = new window.kakao.maps.Map(container, options);
+    //검색시 지도 위치 변화를 위한 지도 참조
+    mapRef.current = map;
     // 중심 좌표 (시립대)
     const centerPosition = new window.kakao.maps.LatLng(37.584863,127.057734);
     // 확대/축소 범위 제한
@@ -258,6 +263,15 @@ export default function KakaoMapPage() {
   const router = useRouter();
   console.log(router);
 
+  //음식점을 중심으로 확대하여 지도 위치 이동
+  const handleSearchRestaurant = (restaurant: Restaurant) => {
+    if(mapRef.current) {
+      const center = new kakao.maps.LatLng(restaurant.latitude, restaurant.longitude);
+      (mapRef.current as any).setCenter(center);
+      (mapRef.current as any).setLevel(1);
+    }
+  }
+
   return (
     <div>
       {/* kakao map sdk 불러오기 */}
@@ -305,35 +319,46 @@ export default function KakaoMapPage() {
 
         <img
           className="irumae-mask"
-          src="/irumae_mask_black.png"
+          src="/irumae_mask.png"
           alt='이루매 마스크'
           style={{ opacity: hovered ? 0 : 1 }}
         />
       </div>
 
-      <div className='login-wrapper'>
-        <button className='login-button'
-          onClick={() => setIsLoginModalOpen(prev => !prev)}>
-          로그인
-        </button>
-
-        {isLoginModalOpen && (
-          <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
-            <input type="text" placeholder="아이디" className="login-input" />
-            <input type="password" placeholder="비밀번호" className="login-input" />
-            <button className="login-submit-button">로그인</button>
-          </div>
-        )}
-
+      <div className='top-wrapper'>
+        <SearchBar
+          restaurants={restaurants}
+          onSelect={(restaurant) => {
+              handleSearchRestaurant(restaurant as Restaurant);
+            }}
+        />
         
-        <span className="divider"></span>
-        <button 
-          className='signup-button'
-          onClick={() => router.push('/signup')}
-        >
-          회원가입
-        </button>
+
+        <div className='login-wrapper'>
+          <button className='login-button'
+            onClick={() => setIsLoginModalOpen(prev => !prev)}>
+            로그인
+          </button>
+
+          {isLoginModalOpen && (
+            <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
+              <input type="text" placeholder="아이디" className="login-input" />
+              <input type="password" placeholder="비밀번호" className="login-input" />
+              <button className="login-submit-button">로그인</button>
+            </div>
+          )}
+
+          
+          <span className="divider"></span>
+          <button 
+            className='signup-button'
+            onClick={() => router.push('/signup')}
+          >
+            회원가입
+          </button>
+        </div>
       </div>
+      
 
       <div className='top-container'>
         <div className='top-bar'>
@@ -400,12 +425,14 @@ export default function KakaoMapPage() {
       
         {/* 키워드박스 식당 불러오기 */}
         <div className='keyword-container'>
-          <KeywordBox isOpen={isKeywordBoxOpen} restaurants={restaurants}
-          onRestaurantClick={(restaurant) => {
-          setSelectedRestaurant(restaurant as Restaurant);
-          setIsModalOpen(true);
-        }}
-      />
+          <KeywordBox 
+            isOpen={isKeywordBoxOpen} 
+            restaurants={restaurants}
+            onRestaurantClick={(restaurant) => {
+              setSelectedRestaurant(restaurant as Restaurant);
+              setIsModalOpen(true);
+            }}
+          />
 
           {/* 지도 표시 영역 */}
           <div className="map-container" id="map"></div>

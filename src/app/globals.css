@@ -52,11 +52,84 @@ html, body {
   padding: 30px;
 }
 
-.login-wrapper {
+.top-wrapper {
+  display: flex;
   position: fixed;
-  z-index: 1001;
   top: 2%;
   right: 3%;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.search-container {
+  display: flex;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.search-bar {
+  display: flex;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.4);
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 5px;
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s, padding 0.3s;
+  pointer-events: none;
+}
+
+.search-bar.open {
+  width: 150px;
+  opacity: 1;
+  padding: 0 8px;
+  pointer-events: auto;
+}
+
+.search-result {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+  background: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  font-size: 14px;
+  gap: 5px;
+}
+
+.search-result.close {
+  display: none;
+}
+
+.search-button {
+  display: flex;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: margin 0.3s ease;
+}
+
+.search-img {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrapper {
+  z-index: 1001;
   display: flex;
   gap: 5px;
 }
@@ -559,7 +632,7 @@ html, body {
     justify-content: flex-start;
     gap: 8px;
     left: 6%;
-    top: 150px;
+    top: 175px;
   }
 
   .modal-content {
@@ -572,10 +645,9 @@ html, body {
 
   .keyword-box {
   position: absolute;
-  top: 55px;
   left: 5%;
   width: 280px;
-  height: 71%;
+  height: 76%;
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #ccc;
