@@ -1,11 +1,11 @@
-
 'use client';
+
 import { useState } from 'react';
 import styles from './signup.module.css';
-import { useParams } from 'next/navigation';
-
+import { useRouter } from 'next/navigation'; 
 
 export default function Signup() {
+    const router = useRouter();
     const [id, setId] = useState(''); // id
     const [emailSent, setEmailSent] = useState(false); // 인증 메일 여부
     const [code, setCode] = useState(''); // 인증 코드
@@ -94,7 +94,9 @@ export default function Signup() {
     
         if (res.ok) {
             alert('회원가입이 완료되었습니다.');
-        } else {
+            router.push('/'); // 회원가입 성공 시, 메인 화면으로 이동
+        }
+        else {
             alert('회원가입 실패');
         }
     };
