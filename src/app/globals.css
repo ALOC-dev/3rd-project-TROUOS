@@ -59,6 +59,7 @@ html, body {
   right: 3%;
   gap: 30px;
   align-items: flex-start;
+  z-index: 1002;
 }
 
 .search-container {
