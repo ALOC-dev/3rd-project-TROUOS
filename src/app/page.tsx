@@ -58,6 +58,8 @@ export default function KakaoMapPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   //지도 저장
   const mapRef = useRef<kakao.maps.Map | null>(null);
+  const [loginId, setLoginId] = useState('');
+  const [loginPw, setLoginPw] = useState('');
 
 
 
@@ -260,6 +262,29 @@ export default function KakaoMapPage() {
     )
   }
 
+  const handleLogin = async () => {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ userId: loginId, password: loginPw }),
+      });
+
+      if (!res.ok) {
+        alert('아이디 또는 비밀번호를 확인하세요');
+        return;
+      }
+
+      const data = await res.json();
+      alert('로그인에 성공하였습니다.');
+      setIsLoginModalOpen(false);
+
+    }
+    catch (error) {
+      alert('서버 오류가 발생했습니다.');
+    }
+  };
+
   const router = useRouter();
   console.log(router);
 
@@ -342,9 +367,25 @@ export default function KakaoMapPage() {
 
           {isLoginModalOpen && (
             <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
-              <input type="text" placeholder="아이디" className="login-input" />
-              <input type="password" placeholder="비밀번호" className="login-input" />
-              <button className="login-submit-button">로그인</button>
+              <input
+                type="text"
+                placeholder="아이디"
+                className="login-input"
+                value={loginId}
+                onChange={e => setLoginId(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                className="login-input"
+                value={loginPw}
+                onChange={e => setLoginPw(e.target.value)}
+              />
+              <button
+                className="login-submit-button"
+                onClick={handleLogin}
+              >로그인
+              </button>
             </div>
           )}
 
