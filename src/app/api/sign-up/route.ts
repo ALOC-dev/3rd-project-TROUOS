@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import bcrypt from 'bcryptjs';
 
 interface RequestBody {
     userId: string;
@@ -8,12 +9,14 @@ interface RequestBody {
 
 export async function POST(request: Request) {
     const body: RequestBody = await request.json()
+    // 비밀번호 해시화
+    const hashedPassword = await bcrypt.hash(body.password, 10)
 
     const user = await prisma.user.create({
     data: {
         userId: body.userId,
         name: body.name,
-        password: body.password, // 해시화 필요
+        password: hashedPassword,
     },
     })
 

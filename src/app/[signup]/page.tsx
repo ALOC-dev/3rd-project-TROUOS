@@ -51,6 +51,9 @@ export default function Signup() {
     const verifyCode = async () => {
         const res = await fetch('/api/verify-code', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({ email, code }),
         });
         if (res.ok) {
@@ -77,9 +80,16 @@ export default function Signup() {
             return;
         }
     
-        const res = await fetch('/api/register', {
+        const res = await fetch('/api/sign-up', {
             method: 'POST',
-            body: JSON.stringify({ name: id, email, password: pw }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: id,
+                name: id,
+                password: pw
+            }),
         });
     
         if (res.ok) {
