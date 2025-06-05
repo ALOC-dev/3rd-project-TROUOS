@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     data: {
         userId: body.userId,
         name: body.name,
-        password: body.password, // 실제 서비스에서는 반드시 해시화
+        password: body.password, // 해시화 필요
     },
     })
 
