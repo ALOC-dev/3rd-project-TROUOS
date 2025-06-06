@@ -58,8 +58,13 @@ export default function KakaoMapPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   //지도 저장
   const mapRef = useRef<kakao.maps.Map | null>(null);
+  // 로그인 상태 저장
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
 
 
 
@@ -207,7 +212,7 @@ export default function KakaoMapPage() {
   const handleDiningOption = (option: string) => {
     setDiningOption((prevOptions) => {    //prevOptions 현재 상태값 배열
       if(prevOptions.includes(option)) {
-        return prevOptions.filter((o) => o !== option);   //filter: 주어진 조건을 만족하는 요소만 남김 => option과 같으면 배열에서 제거(재선택시 해제)
+        return prevOptions.filter((o) => o !== option); // filter: 주어진 조건을 만족하는 요소만 남김 => option과 같으면 배열에서 제거(재선택시 해제)
       }
       else {
         return [...prevOptions, option];   //...prevOptions: 기존 배열 복사
@@ -276,9 +281,9 @@ export default function KakaoMapPage() {
       }
 
       const data = await res.json();
-      alert('로그인에 성공하였습니다.');
+      alert(data.message); // 서버에서 보낸 메시지 그대로 사용
       setIsLoginModalOpen(false);
-
+      setIsLoggedIn(true);
     }
     catch (error) {
       alert('서버 오류가 발생했습니다.');
@@ -358,48 +363,56 @@ export default function KakaoMapPage() {
             }}
         />
         
+        {!isLoggedIn ? (
+          <div className='login-wrapper'>
+            <button className='login-button'
+              onClick={() => setIsLoginModalOpen(prev => !prev)}>
+              로그인
+            </button>
 
-        <div className='login-wrapper'>
-          <button className='login-button'
-            onClick={() => setIsLoginModalOpen(prev => !prev)}>
-            로그인
-          </button>
+            {isLoginModalOpen && (
+              <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
+                <input
+                  type="text"
+                  placeholder="아이디"
+                  className="login-input"
+                  value={loginId}
+                  onChange={e => setLoginId(e.target.value)}
+                />
+                <input
+                  type="password"
+                  placeholder="비밀번호"
+                  className="login-input"
+                  value={loginPw}
+                  onChange={e => setLoginPw(e.target.value)}
+                />
+                <button
+                  className="login-submit-button"
+                  onClick={handleLogin}
+                >로그인
+                </button>
+              </div>
+            )}
 
-          {isLoginModalOpen && (
-            <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
-              <input
-                type="text"
-                placeholder="아이디"
-                className="login-input"
-                value={loginId}
-                onChange={e => setLoginId(e.target.value)}
-              />
-              <input
-                type="password"
-                placeholder="비밀번호"
-                className="login-input"
-                value={loginPw}
-                onChange={e => setLoginPw(e.target.value)}
-              />
-              <button
-                className="login-submit-button"
-                onClick={handleLogin}
-              >로그인
-              </button>
-            </div>
-          )}
-
-          
-          <span className="divider"></span>
-          <button 
-            className='signup-button'
-            onClick={() => router.push('/signup')}
-          >
-            회원가입
-          </button>
-        </div>
+            <span className="divider"></span>
+            <button 
+              className='signup-button'
+              onClick={() => router.push('/signup')}
+            >
+              회원가입
+            </button>
+          </div>
+        ) : (
+          <div className='user-wrapper'>
+            <button className='bookmark-button' onClick={()=>router.push('/bookmark')}>
+              북마크
+            </button>
+            <button className='logout-button' onClick={handleLogout}>
+              로그아웃
+            </button>
+          </div>
+        )}
       </div>
-      
 
       <div className='top-container'>
         <div className='top-bar'>
