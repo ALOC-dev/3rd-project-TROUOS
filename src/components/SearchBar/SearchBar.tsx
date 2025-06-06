@@ -31,13 +31,11 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
 
     //검색바 open/close
     const handleClick = () => {
-        if(!isSearchOpen) {
-            setIsSearchOpen(true)
+        if (isSearchOpen) {
+            setQuery('');
+            setResults([]);
         }
-        else {
-            //돋보기 클릭시 검색
-            handleSearch()
-        }
+        setIsSearchOpen(prev => !prev);
     }
 
     //검색 기능
