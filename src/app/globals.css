@@ -44,12 +44,37 @@ html, body {
   display: flex;
 }
 
-/* 설명 영역 */
-.description {
-  font-size: 20px;
-  margin-top: 15px;
-  margin-left: 25px;
-  padding: 30px;
+.speech-bubble {
+  display: inline-block;
+  position: relative;
+  background: #9BCBEB;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin-left: 70px;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-80%);
+  border: 10px solid transparent;
+  border-right-color: #9BCBEB;
+}
+
+/* 타이핑 커서 깜빡임 효과 */
+.speech-bubble span {
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blink-caret 0.7s step-end infinite;
+}
+
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: white; }
 }
 
 .top-wrapper {

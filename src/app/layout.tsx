@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Gugi } from 'next/font/google';
 import { Noto_Sans_KR } from 'next/font/google';
 import type { Metadata } from "next";
 import "./globals.css";
+import SubTitle from '@/components/SubTitle/SubTitle';
 
 /* 구글 폰트 */
 const gugi = Gugi({
@@ -32,7 +32,9 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
           <Link href="/" className={`title ${gugi.className}`}>
             이시대<br /><span className="title-2">맛집</span>
           </Link>
-            <span className="description">Trending Restaurants of UOS</span>
+          <div className="speech-bubble">
+            <SubTitle text="Trending Restaurants of UOS" />
+          </div>
         </div>
           {children} {/* page.js */}
       </body>
