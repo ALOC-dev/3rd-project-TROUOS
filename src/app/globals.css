@@ -178,27 +178,45 @@ html, body {
 
 
 
-
-
-
 .login-wrapper {
-  z-index: 1001;
+  position: relative;
   display: flex;
   gap: 5px;
+  z-index: 1001;
+}
+
+.login-button,
+.signup-button {
+  background-color: transparent;
+  color: #005eb8;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
+.login-overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
 }
 
 .login-dropdown {
   position: absolute;
-  top: 100%; /* 로그인 버튼 바로 아래 */
+  top: 100%;
   right: 0;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 8px;
-  width: 200px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
+  width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -212,25 +230,13 @@ html, body {
 }
 
 .login-submit-button {
-  background-color: #005EB8;
+  background-color: #005eb8;
   color: white;
   padding: 8px;
   font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.login-button, .signup-button {
-  position: static; /* fixed 제거 */
-  background-color: transparent;
-  color: #005EB8;
-  font-size: 14px;
-  border-radius: 10px;
-  padding: 3px 7px;
-  cursor: pointer;
-  box-shadow: none;
-  border: none;
 }
 
 /* 로그인 회원가입 버튼 사이 구분선 */
@@ -241,6 +247,40 @@ html, body {
   background-color: #005EB8; 
   margin: 0 10px;     
   align-self: center;
+}
+
+.modal-content.logout-confirm {
+  text-align: center;
+  width: 50vw;          /* 화면 너비의 80% */
+  max-width: 400px;     /* 최대 너비 제한 */
+  height: auto;         /* 내용에 따라 높이 조절 */
+  padding: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #bdc3c7;
+  color: black;
 }
 
 

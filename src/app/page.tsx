@@ -62,9 +62,16 @@ export default function KakaoMapPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  const handleLogoutConfirm = () => {
+  setIsLoggedIn(false);
+  setIsLogoutConfirmOpen(false);
   };
+  const handleLogout = () => {
+  setIsLogoutConfirmOpen(true); // 실제 로그아웃이 아니라 모달만 열림
+  };
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  //로그아웃 확인 모달
+
 
 
 
@@ -77,6 +84,7 @@ export default function KakaoMapPage() {
       // json 파싱
       const data = await res.json();
       // 음식점 리스트 저장
+      console.log('API 응답 데이터:', data);
       setRestaurants(data);
     };
     // 함수 호출
@@ -364,55 +372,52 @@ export default function KakaoMapPage() {
         />
         
         {!isLoggedIn ? (
-          <div className='login-wrapper'>
-            <button className='login-button'
-              onClick={() => setIsLoginModalOpen(prev => !prev)}>
-              로그인
-            </button>
+          <div className="login-wrapper">
+          <button className="login-button" onClick={() => setIsLoginModalOpen(prev => !prev)}>
+            로그인
+          </button>
 
-            {isLoginModalOpen && (
-              <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
-                <input
-                  type="text"
-                  placeholder="아이디"
-                  className="login-input"
-                  value={loginId}
-                  onChange={e => setLoginId(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="비밀번호"
-                  className="login-input"
-                  value={loginPw}
-                  onChange={e => setLoginPw(e.target.value)}
-                />
-                <button
-                  className="login-submit-button"
-                  onClick={handleLogin}
-                >로그인
-                </button>
-              </div>
-            )}
-
-            <span className="divider"></span>
-            <button 
-              className='signup-button'
-              onClick={() => router.push('/signup')}
-            >
-              회원가입
-            </button>
-          </div>
-        ) : (
-          <div className='user-wrapper'>
-            <button className='bookmark-button' onClick={()=>router.push('/bookmark')}>
-              북마크
-            </button>
-            <button className='logout-button' onClick={handleLogout}>
-              로그아웃
-            </button>
-          </div>
+        {isLoginModalOpen && (
+          <>
+            <div className="login-overlay-background" onClick={() => setIsLoginModalOpen(false)} />
+            <div className="login-dropdown" onClick={(e) => e.stopPropagation()}>
+              <input
+                type="text"
+                placeholder="아이디"
+                className="login-input"
+                value={loginId}
+                onChange={e => setLoginId(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                className="login-input"
+                value={loginPw}
+                onChange={e => setLoginPw(e.target.value)}
+              />
+              <button className="login-submit-button" onClick={handleLogin}>
+                로그인
+              </button>
+            </div>
+          </>
         )}
+
+        <span className="divider"></span>
+        <button className="signup-button" onClick={() => router.push('/signup')}>
+          회원가입
+        </button>
       </div>
+              ) : (
+                <div className='user-wrapper'>
+                  <button className='bookmark-button' onClick={()=>router.push('/bookmark')}>
+                    북마크
+                  </button>
+                  <button className='logout-button' onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </div>
+              )}
+            </div>
 
       <div className='top-container'>
         <div className='top-bar'>
@@ -585,6 +590,32 @@ export default function KakaoMapPage() {
           </div>
         </div>
       )}
+
+      {/* 로그아웃 확인 버튼 */}
+      {isLogoutConfirmOpen && (
+      <div className="modal-overlay" onClick={() => setIsLogoutConfirmOpen(false)}>
+        <div className="modal-content logout-confirm" onClick={(e) => e.stopPropagation()}>
+          <p className="modal-text" style={{ fontSize: '18px', fontWeight: 'bold' }}>정말 로그아웃하시겠습니까?</p>
+
+          {/* sad 이루매 이미지 추가 */}
+          <img
+            src="/sadIrumae.png"
+            alt="슬픈이루매"
+            style={{
+            width: '100px',
+            height: '100px',
+            margin: 'auto',
+            display: 'block'
+            }}
+          />
+
+          <div className="modal-buttons">
+            <button className="confirm-button" onClick={handleLogoutConfirm}>예</button>
+            <button className="cancel-button" onClick={() => setIsLogoutConfirmOpen(false)}>아니오</button>
+          </div>
+        </div>
+      </div>
+    )}
     </div>
   );
 }
