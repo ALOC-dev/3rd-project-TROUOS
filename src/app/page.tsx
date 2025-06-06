@@ -334,7 +334,7 @@ export default function KakaoMapPage() {
     </div>
 
       <div className='irumae-wrapper'>
-        {/* 헤더 이미지 마우스 오버 시 이미지 변경 */}
+        {/* 이루매 드래그 시, 이미지 변경 */}
         <div
           className={`image-wrapper ${hovered ? 'hovered' : ''}`}
           onMouseOver={() => setHovered(true)}
@@ -350,7 +350,7 @@ export default function KakaoMapPage() {
         <img
           className="irumae-mask"
           src="/irumae_mask.png"
-          alt='이루매 마스크'
+          alt='이루매-2'
           style={{ opacity: hovered ? 0 : 1 }}
         />
       </div>
