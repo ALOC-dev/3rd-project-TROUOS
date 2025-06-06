@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Restaurant {
     id: number;
@@ -17,6 +17,7 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<Restaurant[]>([]);
+    const searchRef = useRef<HTMLDivElement>(null);
 
     //자동 업데이트
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
         }
     }, [query, isSearchOpen, restaurants])
 
-    //검색바 open/close
+    // 검색바 open 및 close
     const handleClick = () => {
         if (isSearchOpen) {
             setQuery('');
@@ -38,7 +39,27 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
         setIsSearchOpen(prev => !prev);
     }
 
-    //검색 기능
+    // 배경 클릭 시, 검색바 close
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setIsSearchOpen(false);
+                setQuery('');
+                setResults([]);
+            }
+        };
+    
+        if (isSearchOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+    
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isSearchOpen]);
+    
+
+    // 검색 기능
     const handleSearch = () => {
         if((query.length < 1)) {
             setResults([]);
@@ -49,7 +70,7 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
         setResults(searched);
     }
 
-    //결과에 나온 음식점 클릭시 해당 음식점 저장
+    // 결과에 나온 음식점 클릭 시, 해당 음식점 저장
     const handleResultClick = (restaurant: Restaurant) => {
         onSelect(restaurant);
         setIsSearchOpen(false);
@@ -59,7 +80,7 @@ export default function SearchBar({ restaurants, onSelect }: SearchBarProps) {
     
 
     return (
-        <div className={'search-container'}>
+        <div className={'search-container'} ref={searchRef}>
             <button 
                 onClick={handleClick} 
                 className='search-button'
