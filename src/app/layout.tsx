@@ -4,6 +4,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import type { Metadata } from "next";
 import "./globals.css";
 import SubTitle from '@/components/SubTitle/SubTitle';
+import { Providers } from './providers'; 
 
 /* 구글 폰트 */
 const gugi = Gugi({
@@ -28,15 +29,17 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   return (
     <html lang="en">
       <body className={notoSans.className}>
-        <div className="navbar">
-          <Link href="/" className={`title ${gugi.className}`}>
-            이시대<br /><span className="title-2">맛집</span>
-          </Link>
-          <div className="speech-bubble">
-            <SubTitle text="Trending Restaurants of UOS" />
+        <Providers>
+          <div className="navbar">
+            <Link href="/" className={`title ${gugi.className}`}>
+              이시대<br /><span className="title-2">맛집</span>
+            </Link>
+            <div className="speech-bubble">
+              <SubTitle text="Trending Restaurants of UOS" />
+            </div>
           </div>
-        </div>
           {children} {/* page.js */}
+        </Providers>
       </body>
     </html>
   );

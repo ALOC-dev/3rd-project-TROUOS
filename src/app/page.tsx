@@ -8,6 +8,8 @@ import FoodCategory from '@/components/Filter/FoodCategory';
 import KeywordBox from '@/components/KeywordBox/KeywordBox'; //키워드박스 불러오기
 import { useRouter } from 'next/navigation';
 import SearchBar from '@/components/SearchBar/SearchBar';
+import { signIn, signOut, useSession } from 'next-auth/react';
+
 declare const kakao: any;
 
 // 식당 정보 담을 인터페이스 
@@ -59,12 +61,13 @@ export default function KakaoMapPage() {
   //지도 저장
   const mapRef = useRef<kakao.maps.Map | null>(null);
   // 로그인 상태 저장
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { data: session, status } = useSession();
+  const isLoggedIn = status === 'authenticated';
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
-  const handleLogoutConfirm = () => {
-  setIsLoggedIn(false);
-  setIsLogoutConfirmOpen(false);
+  const handleLogoutConfirm = async () => {
+    await signOut({ callbackUrl: '/' });
+    setIsLogoutConfirmOpen(false);
   };
   const handleLogout = () => {
   setIsLogoutConfirmOpen(true); // 실제 로그아웃이 아니라 모달만 열림
@@ -276,27 +279,15 @@ export default function KakaoMapPage() {
   }
 
   const handleLogin = async () => {
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ userId: loginId, password: loginPw }),
-      });
-
-      if (!res.ok) {
-        alert('아이디 또는 비밀번호를 확인하세요');
-        return;
-      }
-
-      const data = await res.json();
-      alert(data.message); // 서버에서 보낸 메시지 그대로 사용
-      setIsLoginModalOpen(false);
-      setIsLoggedIn(true);
-    }
-    catch (error) {
-      alert('서버 오류가 발생했습니다.');
-    }
-  };
+    const result = await signIn('credentials', {
+      redirect: false,
+      userId: loginId,
+      password: loginPw
+    });
+    if (result?.error) { alert('아이디 또는 비밀번호를 확인하세요'); return; }
+    alert('로그인에 성공하였습니다.');
+    setIsLoginModalOpen(false);
+ };
 
   const router = useRouter();
   console.log(router);
