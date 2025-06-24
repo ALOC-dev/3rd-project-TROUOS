@@ -1,14 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
 
 # 이시대맛집(TROUOS)
-- asdf
-- asdf
+![Image](https://github.com/user-attachments/assets/f9a8c99e-d810-4bf0-8d98-ffdf828d7712)
+
+**서울시립대학교 주변 음식점 정리 사이트**
 
 ## Features
-- asdf
-- asdf
+
+**메인 페이지**
+![Image](https://github.com/user-attachments/assets/ae7c7b8f-ce8a-47f8-a5cd-f4a887b15721)
+
+**회원가입 페이지**
+![Image](https://github.com/user-attachments/assets/c281a580-4741-4e9c-83be-ebdb5007bdb4)
+
+
 ## Tech Stack
-- asdf
+|Next.js|AWS|MySQL|Redis|Github|
+|:---:|:---:|:---:|:---:|:---:|
+|![Image](https://github.com/user-attachments/assets/198b8159-4f44-4200-a074-8c63d80b5ae8) | ![Image](https://github.com/user-attachments/assets/c7734516-8b9b-4a63-b522-2751e9f19ab4) |![Image](https://github.com/user-attachments/assets/5b9b4365-0e66-45d1-8fad-4dd13ce4184d) |![Image](https://github.com/user-attachments/assets/051b5e00-c894-4533-a474-aac3ca47bbb0) |![Image](https://github.com/user-attachments/assets/20cd0de9-ee1b-46ba-9f84-0a3b7bd89c6c) |
+
+
 ## Project Structure
 
 ```bash
@@ -82,37 +93,3 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 | 🐰 | 🦙 |👽 |🐧 |🐣 |
 |이채우|최문기|백형우|정지윤|김연현|
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
