@@ -1,5 +1,87 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# 이시대맛집(TROUOS)
+- asdf
+- asdf
+
+## Features
+- asdf
+- asdf
+## Tech Stack
+- asdf
+## Project Structure
+
+```bash
+│  
+│  .env
+│  .gitignore
+│  dump.rdb
+│  eslint.config.mjs
+│  next-env.d.ts
+│  next.config.ts
+│  package-lock.json
+│  package.json
+│  postcss.config.mjs
+│  README.md
+│  tsconfig.json
+│  
+├─.next
+├─node_modules        
+├─prisma
+│  │  schema.prisma
+│  └─migrations
+├─public  
+└─src
+    ├─app
+    │  │  globals.css
+    │  │  layout.tsx
+    │  │  page.tsx
+    │  │  providers.tsx
+    │  ├─api
+    │  │  ├─auth
+    │  │  │  └─[...nextauth]
+    │  │  │          route.ts       
+    │  │  ├─login
+    │  │  │      route.ts      
+    │  │  ├─restaurants
+    │  │  │      route.ts     
+    │  │  ├─send-code
+    │  │  │      route.ts     
+    │  │  ├─sign-up
+    │  │  │      route.ts   
+    │  │  └─verify-code
+    │  │          route.ts    
+    │  └─[signup]
+    │          layout.tsx
+    │          page.tsx
+    │          signup.module.css        
+    ├─components
+    │  ├─Filter
+    │  │      DiningOption.tsx
+    │  │      FilterSelector.tsx
+    │  │      FoodCategory.tsx
+    │  ├─Irumae
+    │  │      Irumae.tsx   
+    │  ├─KeywordBox
+    │  │      KeywordBox.tsx
+    │  ├─SearchBar
+    │  │      SearchBar.tsx
+    │  └─SubTitle
+    │          SubTitle.tsx       
+    ├─lib
+    │      prisma.ts
+    │      redis.ts
+    └─types
+            kakao.d.ts
+            next-auth.d.ts
+```
+
+## Team Members
+|Backend|Frontend|Frontend|Frontend|Frontend|
+|:---:|:---:|:---:|:---:|:---:|
+| 🐰 | 🦙 |👽 |🐧 |🐣 |
+|이채우|최문기|백형우|정지윤|김연현|
+
 ## Getting Started
 
 First, run the development server:
