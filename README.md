@@ -1,7 +1,8 @@
 
 
 # 🥘이시대맛집(TROUOS)
-![Image](https://github.com/user-attachments/assets/f9a8c99e-d810-4bf0-8d98-ffdf828d7712)
+![image](https://github.com/user-attachments/assets/a4f40d2e-129d-416e-9568-f07996bf2c92)
+
 
 **서울시립대학교 주변 음식점 정리 사이트**
 
