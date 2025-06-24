@@ -94,7 +94,7 @@
 ```
 
 ## 💁‍♂️Team Members
-|Backend|Frontend|Frontend|Frontend|Frontend|
+|Backend|Backend|Frontend|Frontend|Frontend|
 |:---:|:---:|:---:|:---:|:---:|
 | 🐰 | 🦙 |👽 |🐧 |🐣 |
 |이채우|최문기|백형우|정지윤|김영현|
