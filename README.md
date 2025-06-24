@@ -13,6 +13,11 @@
 **회원가입 페이지**
 ![Image](https://github.com/user-attachments/assets/c281a580-4741-4e9c-83be-ebdb5007bdb4)
 
+**음식점별 정보**
+
+|||
+|:---:|:---:|
+|![image](https://github.com/user-attachments/assets/c2e2ad65-6e65-4697-88ac-c0ac812d58c7)|![image](https://github.com/user-attachments/assets/e293cfdc-a232-4305-8f8d-26fd42890231)|
 
 ## ⚙Tech Stack
 |Next.js|AWS|MySQL|Redis|Github|
