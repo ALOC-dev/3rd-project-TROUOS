@@ -120,6 +120,23 @@ export default function KakaoMapPage() {
     }, 2000); // 2초 후 자동 숨김
   };
 
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+  const selectedCategory =
+    foodCategory.length === 0 ||
+    foodCategory.includes(restaurant.category);
+
+  const selectedOption =
+    diningOption.length === 0 ||
+    diningOption.every((option) => {
+      if (option === "배달") return restaurant.delivery;
+      if (option === "포장") return restaurant.takeOut;
+      if (option === "매장식사") return restaurant.forHere;
+      return false;
+    });
+
+  return selectedCategory && selectedOption;
+});
+
   // 지도 초기화 함수
   const initMap = () => {
     // 데이터 없으면 실행 안 함
@@ -501,7 +518,7 @@ export default function KakaoMapPage() {
         <div className='keyword-container'>
           <KeywordBox 
             isOpen={isKeywordBoxOpen} 
-            restaurants={restaurants}
+            restaurants={filteredRestaurants}
             onRestaurantClick={(restaurant) => {
               setSelectedRestaurant(restaurant as Restaurant);
               setIsModalOpen(true);
