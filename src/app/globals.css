@@ -577,7 +577,6 @@ html, body {
 .keyword-toggle:hover {
   background: #005EB8;
   transform: scale(1.1);
-  /* animation: gradient 3s ease infinite; */
 }
 
 .filter-wrapper {
@@ -735,20 +734,20 @@ html, body {
   cursor: pointer;
   position: relative;     
 
-  box-shadow: 0px 5px 0px 0px #004094;  /* 예: 퍼플 계열 */
+  box-shadow: 0px 5px 0px 0px #004094;  
   transition: all 0.1s ease-in-out;
 }
 
 .selected-hamburger:hover {
   box-shadow: 0px 0px 0px 0px #004094;
   margin-top: 5px;
-  margin-bottom: -5px;  /* 살짝 아래로 눌리는 효과 */
+  margin-bottom: -5px; 
 }
 
 .selected-hamburger .dropdown-list {
   display: none;
   position: absolute;
-  top: 115%;              /* 버튼 아래로 목록 띄움 */
+  top: 115%;            
   right: -50%;
   
   flex-direction: column;
