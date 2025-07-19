@@ -503,6 +503,7 @@ export default function KakaoMapPage() {
             <div className='reset-wrapper'>
               <button 
                 className='reset-button'
+                data-text="초기화"
                 onClick={() => {
                   setFilterSelector('전체');
                   setDiningOption([]);
