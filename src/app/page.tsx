@@ -495,7 +495,7 @@ export default function KakaoMapPage() {
                 }}
                 className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
               >
-                <span className="hamburger-icon">{isKeywordBoxOpen ? '×' : '≡'}</span>
+                <span className="hamburger-icon">{isKeywordBoxOpen ? '<' : '>'}</span>
               </button>
           </div>
         </div>
