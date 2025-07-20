@@ -74,9 +74,6 @@ export default function KakaoMapPage() {
   };
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
   //로그아웃 확인 모달
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
-  const [bookmarkAlertVisible, setBookmarkAlertVisible] = useState(false);
-  const [bookmarkMessage, setBookmarkMessage] = useState('');
 
 
 
@@ -322,26 +319,6 @@ export default function KakaoMapPage() {
     }
   }
 
-  const handleBookmarkClick = (restaurantId: number) => {
-  setBookmarkedIds((prev) => {
-    const isAlreadyBookmarked = prev.includes(restaurantId);
-
-    if (isAlreadyBookmarked) {
-      // 북마크 해제
-      setBookmarkMessage('북마크에서 삭제되었습니다.');
-      setBookmarkAlertVisible(true);
-      setTimeout(() => setBookmarkAlertVisible(false), 2000);
-      return prev.filter(id => id !== restaurantId);
-    } else {
-      // 북마크 추가
-      setBookmarkMessage('북마크에 추가되었습니다.');
-      setBookmarkAlertVisible(true);
-      setTimeout(() => setBookmarkAlertVisible(false), 2000);
-      return [...prev, restaurantId];
-    }
-  });
-};
-
   return (
     <div>
       {/* kakao map sdk 불러오기 */}
@@ -565,17 +542,6 @@ export default function KakaoMapPage() {
               <div className="modal-body-scrollable">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <h2 style={{ margin: 0 }}>{selectedRestaurant.name}</h2>
-                  <button
-                    onClick={() => handleBookmarkClick(selectedRestaurant.id)}
-                    className="bookmark-icon-button"
-                    aria-label="북마크"
-                  >
-                    <img
-                      src={bookmarkedIds.includes(selectedRestaurant.id) ? '/bookmark-filled.png' : '/bookmark-empty.png'}
-                      alt="북마크 아이콘"
-                      style={{ width: '24px', height: '24px' }}
-                    />
-                  </button>
                 </div>
                 <hr className="special-hr" />
                 <p><strong>📍 주소</strong> {selectedRestaurant.address}</p>
@@ -660,11 +626,6 @@ export default function KakaoMapPage() {
             <button className="cancel-button" onClick={() => setIsLogoutConfirmOpen(false)}>아니오</button>
           </div>
         </div>
-      </div>
-    )}
-    {bookmarkAlertVisible && (
-      <div className="bookmark-alert">
-        {bookmarkMessage}
       </div>
     )}
     </div>
