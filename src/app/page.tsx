@@ -418,9 +418,6 @@ export default function KakaoMapPage() {
       </div>
               ) : (
                 <div className='user-wrapper' style={{ display: 'flex', gap: '10px' }}>
-                  <button className='filter-button' onClick={()=>router.push('/bookmark')}>
-                    북마크
-                  </button>
                   <button className='filter-button' onClick={handleLogout}>
                     로그아웃
                   </button>
@@ -431,27 +428,15 @@ export default function KakaoMapPage() {
       <div className='top-container'>
         <div className='top-bar'>
           <div className='top-bar-left'>
-            {/* ≡ 토글 버튼 (키워드박스용) */}
-            <button
-              onClick={() => {
-                setIsKeywordBoxOpen((prev) => !prev);
-                console.log('키워드 박스 상태:', !isKeywordBoxOpen);
-              }}
-              className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
-            >
-              <span className="hamburger-icon">{isKeywordBoxOpen ? '×' : '≡'}</span>
-            </button>
-
             {/* 필터 버튼 */}
             <div className='filter-wrapper'>
-              {/*필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
+              {/* 필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
               {filterSelector === '전체' && (
                 <FilterSelector 
                   filterSelector={filterSelector}
                   setFilterSelector={setFilterSelector}
                 />
               )}
-
             
               {filterSelector === '음식 카테고리' && (
                 <FoodCategory
@@ -504,7 +489,17 @@ export default function KakaoMapPage() {
           />
 
           {/* 지도 표시 영역 */}
-          <div className="map-container" id="map"></div>
+          <div className="map-container" id="map">
+            <button
+                onClick={() => {
+                  setIsKeywordBoxOpen((prev) => !prev);
+                  console.log('키워드 박스 상태:', !isKeywordBoxOpen);
+                }}
+                className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
+              >
+                <span className="hamburger-icon">{isKeywordBoxOpen ? '×' : '≡'}</span>
+              </button>
+          </div>
         </div>
       </div>
       
