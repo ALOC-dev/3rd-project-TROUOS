@@ -559,8 +559,7 @@ html, body {
 }
 
 .keyword-toggle.open {
-  left: auto;
-  right: 415px; /* 오른쪽으로 이동 */
+  left: 352px; /* 오른쪽으로 이동 */
   top: 230px;
 }
 
