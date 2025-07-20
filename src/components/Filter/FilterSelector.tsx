@@ -1,11 +1,10 @@
-
 interface Props {
     filterSelector: string;
     setFilterSelector: (filter: string) => void;
 }
 
 export default function FilterSelector({ filterSelector, setFilterSelector }: Props) {
-    const filters = ['전체', '이용 방법', '음식 카테고리'];
+    const filters = ['이용 방법', '음식 카테고리'];
 
     return (
         <div className="button-container">

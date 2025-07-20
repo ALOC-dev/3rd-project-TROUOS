@@ -46,7 +46,7 @@ export default function KakaoMapPage() {
   // 모달 open 여부
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 필터 선택
-  const [filterSelector, setFilterSelector] = useState('전체');
+  const [filterSelector, setFilterSelector] = useState('all');
   //이용 방법
   const [diningOption, setDiningOption] = useState<string[]>([]); //중복처리를 위해 배열로 변경
   // 카테고리
@@ -430,14 +430,6 @@ export default function KakaoMapPage() {
           <div className='top-bar-left'>
             {/* 필터 버튼 */}
             <div className='filter-wrapper'>
-              {/* 필터 선택 버튼은 필터가 아직 선택되지 않았을 때만 보여줌 */}
-              {filterSelector === '전체' && (
-                <FilterSelector 
-                  filterSelector={filterSelector}
-                  setFilterSelector={setFilterSelector}
-                />
-              )}
-            
               {filterSelector === '음식 카테고리' && (
                 <FoodCategory
                   foodCategory={foodCategory}
@@ -450,6 +442,13 @@ export default function KakaoMapPage() {
                 <DiningOption
                   diningOption={diningOption}
                   setDiningOption={handleDiningOption}
+                  setFilterSelector={setFilterSelector}
+                />
+              )}
+
+              {filterSelector === 'all' && (
+                <FilterSelector
+                  filterSelector={filterSelector}
                   setFilterSelector={setFilterSelector}
                 />
               )}
@@ -467,7 +466,6 @@ export default function KakaoMapPage() {
                 className='reset-button'
                 data-text="초기화"
                 onClick={() => {
-                  setFilterSelector('전체');
                   setDiningOption([]);
                   setFoodCategory([]);
                 }}  

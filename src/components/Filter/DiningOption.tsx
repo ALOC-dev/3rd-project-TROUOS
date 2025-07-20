@@ -19,7 +19,7 @@ export default function DiningOption({ diningOption, setDiningOption, setFilterS
                     // '이전'을 누르면 돌아가도록 함
                     onClick={() => {
                         if(option === '이전') {
-                            setFilterSelector('전체');
+                            setFilterSelector('all');
                         }
                         else {
                             setDiningOption(option);
