@@ -3,8 +3,8 @@ import { Gugi } from 'next/font/google';
 import { Noto_Sans_KR } from 'next/font/google';
 import type { Metadata } from "next";
 import "./globals.css";
-import SubTitle from '@/components/SubTitle/SubTitle';
 import { Providers } from './providers'; 
+import SpeachBubble from "@/components/SpeachBubble/SpeachBubble";
 
 /* 구글 폰트 */
 const gugi = Gugi({
@@ -34,9 +34,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
             <Link href="/" className={`title ${gugi.className}`}>
               이시대<br /><span className="title-2">맛집</span>
             </Link>
-            <div className="speech-bubble">
-              <SubTitle text="Trending Restaurants of UOS" />
-            </div>
+            <SpeachBubble/>
           </div>
           {children} {/* page.js */}
         </Providers>
