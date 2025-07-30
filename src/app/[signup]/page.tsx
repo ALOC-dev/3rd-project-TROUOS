@@ -115,16 +115,15 @@ export default function Signup() {
 
     return (
         <div className={styles.background}>
-            <form className={styles.signUpBox} onSubmit={handleSubmit}>
-                {/*진행바 */}
-                <div className={styles.barWrapper}>
-                    <div className={styles.bar}>
-                        <div className={styles.fill} style={{width: `${progressPercent}%`}}/>   
-                    </div>
-                    <div className={styles.character} style={{ left: `calc(${progressPercent}% - 30px)` }}>
-                    </div>
-
+            {/*진행바 */}
+            <div className={styles.barWrapper}>
+                <div className={styles.bar}>
+                    <div className={styles.fill} style={{width: `${progressPercent}%`}}/>   
                 </div>
+                <div className={styles.character} style={{ left: `calc(${progressPercent}% - 20px)` }}/>
+            </div>
+
+            <form className={styles.signUpBox} onSubmit={handleSubmit}>
                 <p>서울시립대학교 포털 ID</p>
                 <div className={styles.boxContainer}>
                     <input
