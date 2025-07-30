@@ -133,7 +133,7 @@ export default function Signup() {
             </div>
 
             <form className={styles.signUpBox} onSubmit={handleSubmit}>
-                <p>서울시립대학교 포털 ID</p>
+                <p style={{ opacity: 0.7 }}>서울시립대학교 포털 ID</p>
                 <div className={styles.boxContainer}>
                     <input
                         className={styles.emailBox}
@@ -152,7 +152,7 @@ export default function Signup() {
                     </button>
                 </div>
 
-                <p>인증 번호</p>
+                <p style={{ opacity: 0.7 }}>인증 번호</p>
                 <div className={styles.boxContainer}>
                     <input
                         className={styles.verifyNumBox}
@@ -172,7 +172,7 @@ export default function Signup() {
                     </button>
                 </div>
                 
-                <p>비밀번호</p>
+                <p style={{ opacity: 0.7 }}>비밀번호</p>
                     <input
                         className={styles.pwBox}
                         type="password"
@@ -187,7 +187,7 @@ export default function Signup() {
                     </p>
                     )}
 
-                    <p>비밀번호 재입력</p>
+                    <p style={{ opacity: 0.7 }}>비밀번호 재입력</p>
                     <input
                         className={styles.pwBox}
                         type="password"
