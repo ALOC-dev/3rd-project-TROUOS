@@ -105,12 +105,16 @@ export default function Signup() {
         if (!id) return 0;
         if (!emailSent) return 0;
         if (!isVerified) return 1;
-        if (!isValidPassword(pw) || pw !== rePw) return 2;
-        return 3;
+        if (!isValidPassword(pw)) return 2;
+        if (pw !== rePw) return 3;
+        return 4;
     }
 
     const currentStep = getProgressStep();
     const progressPercent = (currentStep/4) * 100;
+    const barWidth = 450;
+    const offset = 20;
+    const leftPx = (progressPercent / 100) * barWidth - offset;
 
 
     return (
@@ -120,7 +124,12 @@ export default function Signup() {
                 <div className={styles.bar}>
                     <div className={styles.fill} style={{width: `${progressPercent}%`}}/>   
                 </div>
-                <div className={styles.character} style={{ left: `calc(${progressPercent}% - 20px)` }}/>
+                <img
+                    className={styles.character}
+                    src={progressPercent === 100 ? '/irumae-success.png' : '/irumae-progress.png'}
+                    style={{ left: `calc(${leftPx}px)` }}
+                    alt="이루매"
+                />
             </div>
 
             <form className={styles.signUpBox} onSubmit={handleSubmit}>
@@ -173,7 +182,7 @@ export default function Signup() {
                         disabled={!isVerified}
                     />
                     {pw && !isValidPassword(pw) && (
-                    <p style={{ color: 'red', marginTop: '8px' }}>
+                    <p style={{ color: 'red', marginTop: '8px', fontSize: 12}}>
                         영문 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.
                     </p>
                     )}
@@ -189,7 +198,7 @@ export default function Signup() {
                     />
 
                     {pw && rePw && pw !== rePw && (
-                        <p style={{color: 'red', marginTop: '8px'}}>
+                        <p style={{color: 'red', marginTop: '8px', fontSize: 12}}>
                             비밀번호가 일치하지 않습니다.
                         </p>
                     )}

@@ -105,17 +105,34 @@
     transition: width 0.3s ease;
 }
 
+
 .character {
+    position: absolute;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    animation: tilt 0.7s infinite ease-in-out;
+    transition: left 0.3s ease;
+}
+
+.imgProgress {
     position: absolute;
     top: -25px;
     width: 70px;
-    height: 70px;
-    background-image: url('/irumae-study.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-
+    height: 60px;
     animation: tilt 0.7s infinite ease-in-out;
+    transition: left 0.3s ease;
+}
 
+.imgSuccess {
+    position: absolute;
+    top: -30px;
+    left: -60px;
+    width: 60px;
+    height: 70px;
+    animation: tilt 0.7s infinite ease-in-out;
+    transition: left 0.3s ease;
 }
 
 @keyframes tilt {
