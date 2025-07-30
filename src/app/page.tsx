@@ -477,29 +477,30 @@ export default function KakaoMapPage() {
       
         {/* 키워드박스 식당 불러오기 */}
         <div className='keyword-container'>
-          <KeywordBox 
-            isOpen={isKeywordBoxOpen} 
-            restaurants={filteredRestaurants}
-            onRestaurantClick={(restaurant) => {
-              setSelectedRestaurant(restaurant as Restaurant);
-              setIsModalOpen(true);
-            }}
-          />
+          <div className="keyword-wrapper">
+            <KeywordBox 
+              isOpen={isKeywordBoxOpen} 
+              restaurants={filteredRestaurants}
+              onRestaurantClick={(restaurant) => {
+                setSelectedRestaurant(restaurant as Restaurant);
+                setIsModalOpen(true);
+              }}
+            />
 
-          {/* 지도 표시 영역 */}
-          <div className="map-container" id="map">
-            <button
-                onClick={() => {
-                  setIsKeywordBoxOpen((prev) => !prev);
-                  console.log('키워드 박스 상태:', !isKeywordBoxOpen);
-                }}
-                className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
-              >
-                <span className="hamburger-icon">{isKeywordBoxOpen ? '<' : '>'}</span>
-              </button>
+            {/* 지도 표시 영역 */}
+              <button
+                  onClick={() => {
+                    setIsKeywordBoxOpen((prev) => !prev);
+                    console.log('키워드 박스 상태:', !isKeywordBoxOpen);
+                  }}
+                  className={`keyword-toggle ${isKeywordBoxOpen ? 'open' : ''}`}
+                >
+                  <span className="hamburger-icon">{isKeywordBoxOpen ? '<' : '>'}</span>
+                </button>
+            </div>
+            <div className="map-container" id="map"></div>
           </div>
         </div>
-      </div>
       
       
       {/* 모달 */}
