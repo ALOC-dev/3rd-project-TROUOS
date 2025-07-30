@@ -101,10 +101,30 @@ export default function Signup() {
         }
     };
 
+    const getProgressStep = (): number => {
+        if (!id) return 0;
+        if (!emailSent) return 0;
+        if (!isVerified) return 1;
+        if (!isValidPassword(pw) || pw !== rePw) return 2;
+        return 3;
+    }
+
+    const currentStep = getProgressStep();
+    const progressPercent = (currentStep/4) * 100;
+
 
     return (
         <div className={styles.background}>
             <form className={styles.signUpBox} onSubmit={handleSubmit}>
+                {/*진행바 */}
+                <div className={styles.barWrapper}>
+                    <div className={styles.bar}>
+                        <div className={styles.fill} style={{width: `${progressPercent}%`}}/>   
+                    </div>
+                    <div className={styles.character} style={{ left: `calc(${progressPercent}% - 30px)` }}>
+                    </div>
+
+                </div>
                 <p>서울시립대학교 포털 ID</p>
                 <div className={styles.boxContainer}>
                     <input
@@ -118,6 +138,7 @@ export default function Signup() {
                         className={styles.buttonContainer}
                         type="button"
                         onClick={sendVerificationCode}
+                        disabled={!id}
                     >
                         인증번호 전송
                     </button>
@@ -131,11 +152,13 @@ export default function Signup() {
                         value={code}
                         onChange={(e)=>setCode(e.target.value)}
                         required
+                        disabled={!emailSent}
                     />
                     <button 
                         className={styles.buttonContainer}
                         type="button"
                         onClick={verifyCode}
+                        disabled={!emailSent}
                     >
                         인증번호 확인
                     </button>
@@ -148,6 +171,7 @@ export default function Signup() {
                         value={pw}
                         onChange={(e)=>setPw(e.target.value)}
                         required
+                        disabled={!isVerified}
                     />
                     {pw && !isValidPassword(pw) && (
                     <p style={{ color: 'red', marginTop: '8px' }}>
@@ -162,6 +186,7 @@ export default function Signup() {
                         value={rePw}
                         onChange={(e)=>setRePw(e.target.value)}
                         required
+                        disabled={!isValidPassword(pw)}
                     />
 
                     {pw && rePw && pw !== rePw && (
@@ -174,6 +199,13 @@ export default function Signup() {
                         <button 
                             className={styles.submitButton}
                             type="submit"
+                            disabled={
+                                !id ||
+                                !emailSent ||
+                                !isVerified ||
+                                !isValidPassword(pw) ||
+                                pw !== rePw
+                            }
                         >
                             회원가입
                         </button>
