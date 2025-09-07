@@ -32,14 +32,15 @@ const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaura
         <div
             className={`keyword-box ${isOpen ? 'open' : ''}`}
         >
-        {restaurants.map((r) => (
+        {restaurants.map((r, index) => (
             <div
                 key={r.id}
                 onClick={() => onRestaurantClick(r)}
                 style={{
                     width: '100%',
-                    borderBottom: '1px solid #eee',
+                    borderBottom: index !== restaurants.length - 1 ? '1px solid #eee' : 'none',
                     paddingBottom: '12px',
+                    marginBottom: '12px'
                 }}
             >
 
@@ -58,7 +59,7 @@ const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaura
                 />
                 <h4 style={{ margin: '8px 0 4px' }}>{r.name}</h4>
                 <p style={{ margin: 0, fontSize: '14px', color: '#555' }}>{r.address}</p>
-                <p style={{ margin: 0, fontSize: '12px', color: '#777' }}>
+                <p style={{ margin: 3, fontSize: '12px', color: '#777' }}>
                 ⏰ {r.openTime} / ❌ {getClosedDays(r.closedDays).join(', ') || '없음'}
                 </p>
             </div>
