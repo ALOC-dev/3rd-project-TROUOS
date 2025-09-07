@@ -278,7 +278,8 @@ export default function KakaoMapPage() {
       <div>
         <div className='selected-button'>
           {diningOption.map((opt) => (    //diningOption 배열 요소 렌더링
-            <span key={opt}>✅{opt}</span>
+            <span
+              key={opt}>✅{opt}</span>
           ))}
           {foodCategory.map((cate) => (
             <span key={cate}>☑️{cate}</span>

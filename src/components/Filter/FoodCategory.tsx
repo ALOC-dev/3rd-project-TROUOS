@@ -12,33 +12,38 @@ export default function CategoryFilter({ foodCategory, setFoodCategory, setFilte
 
     return (
         <div className="button-container">
-            {categories.map((category) => (
-                <button
-                    className={`filter-button ${foodCategory.includes(category) ? 'selected' : ''}`}
-                    key={category}
-                    // '이전'을 누르면 돌아가도록 함
-                    onClick={() => {
-                        if(category === '이전') {
-                            setFilterSelector('all');
-                        }
-                        else {
-                            setFoodCategory(category);
-                        }
-                    }}
-                >
-                    {/* '이전'와 '기타'는 아이콘 없이 텍스트만 표시 */}
-                    {category !== '이전' && category !== '기타' && (
-                        <Image
-                            src={`/${category}.png`}
-                            alt={`${category} 아이콘`}
-                            width={20}
-                            height={20}
-                            style={{ marginRight: '6px' }}
-                        />
-                    )}
-                    {category}
-                </button>
-            ))}
+            {categories.map((category, idx) => {
+                const isFirst = idx === 0; // 첫 번째 버튼인지 확인
+
+                return (
+                    <button
+                        key={category}
+                        className={`filter-button ${foodCategory.includes(category) ? 'selected' : ''}`}
+                        style={{
+                            width: isFirst && category === '이전' ? '70px' : undefined, 
+                            transition: 'width 0.2s'
+                        }}
+                        onClick={() => {
+                            if(category === '이전') {
+                                setFilterSelector('all');
+                            } else {
+                                setFoodCategory(category);
+                            }
+                        }}
+                    >
+                        {category !== '이전' && category !== '기타' && (
+                            <Image
+                                src={`/${category}.png`}
+                                alt={`${category} 아이콘`}
+                                width={20}
+                                height={20}
+                                style={{ marginRight: '6px' }}
+                            />
+                        )}
+                        {category}
+                    </button>
+                );
+            })}
         </div>
     );
 }
