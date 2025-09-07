@@ -1,4 +1,5 @@
-'use client'; // 
+'use client';
+// redis-server
 
 import Script from 'next/script'; // 외부 스크립트(kakao maps sdk) 불러오기 위해
 import { useRef, useEffect, useState } from 'react';
@@ -73,7 +74,7 @@ export default function KakaoMapPage() {
   setIsLogoutConfirmOpen(true); // 실제 로그아웃이 아니라 모달만 열림
   };
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
-  //로그아웃 확인 모달
+  const [isKakaoLoaded, setIsKakaoLoaded] = useState(false);
 
 
 
@@ -89,7 +90,13 @@ export default function KakaoMapPage() {
       const data = await res.json();
       // 음식점 리스트 저장
       console.log('API 응답 데이터:', data);
-      setRestaurants(data);
+      if (data.restaurants && Array.isArray(data.restaurants)) {
+        setRestaurants(data.restaurants);
+      } else if (Array.isArray(data)) {
+        setRestaurants(data);
+      } else {
+        setRestaurants([]);
+      }
     };
     // 함수 호출
     fetchRestaurants();
@@ -97,11 +104,11 @@ export default function KakaoMapPage() {
 
   useEffect(() => {
     // 음식점 데이터 로드 후, 지도 초기화
-    if(restaurants.length > 0 && window.kakao?.maps){
+    if(isKakaoLoaded && restaurants.length > 0){
       // 지도 생성 함수
       initMap();
     }
-  }, [restaurants, foodCategory, diningOption]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
+  }, [isKakaoLoaded, restaurants, foodCategory, diningOption]); // 음식점 데이터 바뀔 때만 -> 카테고리, 이용 방법 선택할 때도
 
   let alertTimeout: NodeJS.Timeout | null = null;
 
@@ -326,10 +333,9 @@ export default function KakaoMapPage() {
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_API_KEY}&autoload=false`}
         strategy="afterInteractive"
         onLoad={() => {
-          // sdk 로드 후, 지도 로드
           window.kakao.maps.load(() => {
-            initMap();
-          }); 
+            setIsKakaoLoaded(true); 
+          });
         }}
       />
 
