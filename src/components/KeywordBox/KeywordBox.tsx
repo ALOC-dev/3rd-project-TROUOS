@@ -42,7 +42,6 @@ const KeywordBox: React.FC<KeywordBoxProps> = ({ isOpen, restaurants, onRestaura
                     paddingBottom: '12px',
                 }}
             >
-                {console.log('이미지 주소:', r.name, r.imageUrl)}
 
                 <img
                     src={r.imageUrl}
