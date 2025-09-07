@@ -208,12 +208,12 @@ export default function KakaoMapPage() {
     const filteredRestaurants = restaurants.filter((restaurant) => {
       // 중복 선택 허용
       const selectedCategory = 
-        foodCategory.length === 0 ||  //배열에 아무것도 없으면 == 선택 안함 == '전체'
-        foodCategory.includes(restaurant.category);   //선택한 카테고리 중 하나라도 일치하는 경우
+        foodCategory.length === 0 || // 배열에 아무것도 없으면 == 선택 안함 == '전체'
+        foodCategory.includes(restaurant.category); // 선택한 카테고리 중 하나라도 일치하는 경우
 
       const selectedOption = 
-        diningOption.length === 0 ||  //배열에 아무것도 없으면 == 선택 안함 == '전체'
-        diningOption.every((option) => {    //every: 모든 조건이 만족해야 할때 사용
+        diningOption.length === 0 || // 배열에 아무것도 없으면 == 선택 안함 == '전체'
+        diningOption.every((option) => { // every: 모든 조건이 만족해야 할 때 사용
           if(option === "배달") return restaurant.delivery;
           if(option === "포장") return restaurant.takeOut;
           if(option === "매장식사") return restaurant.forHere;
@@ -246,12 +246,12 @@ export default function KakaoMapPage() {
 
   // 재선택시 선택 해제
   const handleDiningOption = (option: string) => {
-    setDiningOption((prevOptions) => {    //prevOptions 현재 상태값 배열
+    setDiningOption((prevOptions) => { // prevOptions 현재 상태값 배열
       if(prevOptions.includes(option)) {
         return prevOptions.filter((o) => o !== option); // filter: 주어진 조건을 만족하는 요소만 남김 => option과 같으면 배열에서 제거(재선택시 해제)
       }
       else {
-        return [...prevOptions, option];   //...prevOptions: 기존 배열 복사
+        return [...prevOptions, option]; //...prevOptions: 기존 배열 복사
       }
     })
   };
@@ -268,40 +268,26 @@ export default function KakaoMapPage() {
   };
   
 
-  //선택된 버튼 화면에 표시
+  // 선택된 버튼 화면에 표시
   const SelectedButtons = () => {
     if( diningOption.length === 0 && foodCategory.length === 0) {
       return null;
     }
 
+    const selectedItems = [
+      ...diningOption.map((opt) => ({ label: opt, type: 'dining' })),
+      ...foodCategory.map((cate) => ({ label: cate, type: 'category' }))
+    ];  
+
     return (
-      <div>
-        <div className='selected-button'>
-          {diningOption.map((opt) => (    //diningOption 배열 요소 렌더링
-            <span
-              key={opt}>✅{opt}</span>
-          ))}
-          {foodCategory.map((cate) => (
-            <span key={cate}>☑️{cate}</span>
-          ))}
-        </div>
-
-        <div className='selected-hamburger'>
-          ...
-          <div className='dropdown-list'>
-            {diningOption.map((opt) => (   
-              <span key={opt}>{opt}</span>
-            ))}
-            {/* 이용방법, 카테고리 구분선 */}
-            <div className='special-hr'></div>    
-            {foodCategory.map((cate) => (
-              <span key={cate}>{cate}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-    )
+      <ul className='selected-button-list'>
+        {selectedItems.map((item, index) => (
+          <li key={item.label} className={`selected-item ${item.type}`}>
+            <span>{item.type === 'dining' ? '✅' : '☑️'} {item.label}</span>
+          </li>
+        ))}
+      </ul>
+    );
   }
 
   const handleLogin = async () => {
@@ -318,7 +304,7 @@ export default function KakaoMapPage() {
   const router = useRouter();
   console.log(router);
 
-  //음식점을 중심으로 확대하여 지도 위치 이동
+  // 음식점을 중심으로 확대하여 지도 위치 이동
   const handleSearchRestaurant = (restaurant: Restaurant) => {
     if(mapRef.current) {
       const center = new kakao.maps.LatLng(restaurant.latitude, restaurant.longitude);
